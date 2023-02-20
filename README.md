@@ -13,7 +13,10 @@
 -   Try your best to complete atleast #1 and #2. Thus, is not mandatory to complete all of them.
 -   Be creative, Good luck & take your time :) 
 
-### #1. UI/UX
+
+### Requirements
+
+#### #1. UI/UX
 
 -   Use bootstrap 5 or any css framework that you are most comfortable with.
 -   The app should have a header with the logo on the left side and a logout button on the right (use bootstrap row, container, col, flexbox etc.).
@@ -21,7 +24,7 @@
 -   The application should be responsive: on larger screens display 4 users in a row, on medium screens 2 and on mobile only one.
 -   The design should be clean and modern - use websites like [Dribble](https://dribbble.com/) or [Behance](https://www.behance.net/) for UI inspiration.
 
-### #2. Data retrieval & display
+#### #2. Data retrieval & display
 
 1. **Users listing page**: Create a page that displays a list of all users. Each user in the list should display their first name, last name, and email. The user listing page should include a link to view the details of each user. 
 
@@ -39,7 +42,7 @@
 
 8. **Course details page**: Create the page that displays the details of a specific course. The course page should display all the properties of the course, including the user's enrolled for the selected course.
 
-### #3. Extra (not mandatory)
+#### #3. Extra (not mandatory)
 
 -   Add a filter functionality for user listing page - basically a search.
 -   Use Fetch/Ajax to mock REST API Calls using [DummyJSON](https://dummyjson.com/docs/posts) with the following functionalities for **POSTS**:
