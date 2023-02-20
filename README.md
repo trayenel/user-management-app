@@ -46,7 +46,7 @@
 
 -   Add a filter functionality for user listing page - basically a search - be creative.
 -   Use Fetch/Ajax to make REST API Calls using [DummyJSON](https://dummyjson.com/docs/posts) with the following functionalities for **POSTS**: <br>
-    \-- **Get all posts by user id**: retrieve posts for provided user - posts should be displayed on User Details - togheter with all his properties and existing courses. <br>
+    \-- **Get all posts by user id**: retrieve posts for provided userId on User details page <br>
     \-- **Add a Post** - Add a post for any user <br>
     \-- **Delete post** - Delete post for any user (using a confirmation modal) <br>
 -   Edit an user and manipulate the existing JSON (using read/write to save it locally).
