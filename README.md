@@ -2,7 +2,7 @@
 
 ### Important keynotes
 
--   Your assignment should be done in your own github repository (you can invite me or you can send me the link after completion).
+-   Your assignment should be done in your own github repository (you can invite me or you can send me the link after completion). The repo should be private.
 -   Don't manipulate the `users.json` and `courses.json` directly if you only wish to complete #1 and #2. All the code should be implemented in a **programatic way**.
 -   The overall solution should have three pages:  <br>
     \- `index.html` (list of users)  <br>
@@ -45,7 +45,7 @@
 #### #3. Extra (not mandatory)
 
 -   Add a filter functionality for user listing page - basically a search.
--   Use Fetch/Ajax to mock REST API Calls using [DummyJSON](https://dummyjson.com/docs/posts) with the following functionalities for **POSTS**:
+-   Use Fetch/Ajax to make REST API Calls using [DummyJSON](https://dummyjson.com/docs/posts) with the following functionalities for **POSTS**:
     \-- **Get all posts by user id**: retrieve posts for provided user - posts should be displayed on User Details - togheter with all his properties and existing courses.
     \-- **Add a Post** - Add a post for any user
     \-- **Delete post** - Delete post for any user (using a confirmation modal)
