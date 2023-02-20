@@ -23,14 +23,21 @@
 
 #### 2. Data retrieval & display
 
--   **Users listing page**: Create a page that displays a list of all users. Each user in the list should display their first name, last name, and email. The user listing page should include a link to view the details of each user. 
--   **User insert**: Create a button which opens a modal to simulate adding a new user in the existing JSON. All fields must be validated and it should not allow to insert duplicates (based on email). 
--   **User selection**: When a user clicks on a link to view the details of a user, the application should redirect to the user details page with the ID of the selected user as a **query parameter**.
--   **Retrieve user data**: When the user details page loads, retrieve the user data using the ID specified in the query parameter. Use the ID to find the corresponding user object in the JSON data.
--   **User details page**: Create the page that displays the details of a specific user. The user details page should display all the properties of the user, including their ID, first name, last name, age, gender, email, phone, username, birthdate, height, weight, education, and company details. The user details page should also display the list of courses associated with the selected user.
--   **Retrieve course data**: Retrieve the course data associated with the user. Filter the course data based on the user ID and display the filtered results on the user details page.
--   **Course selection**: When a user clicks on a link to view the details of a course, the application should redirect to the course details page with the id of the selected course as a **query parameter**
--   **Course details page**: Create the page that displays the details of a specific course. The course page should display all the properties of the course, including the user's enrolled for the selected course.
+1. **Users listing page**: Create a page that displays a list of all users. Each user in the list should display their first name, last name, and email. The user listing page should include a link to view the details of each user. 
+
+2. **User insert**: Create a button which opens a modal to simulate adding a new user in the existing JSON. All fields must be validated and it should not allow to insert duplicates (based on email). 
+
+3. **User selection**: When a user clicks on a link to view the details of a user, the application should redirect to the user details page with the ID of the selected user as a **query parameter**.
+
+4. **Retrieve user data**: When the user details page loads, retrieve the user data using the ID specified in the query parameter. Use the ID to find the corresponding user object in the JSON data.
+
+5. **User details page**: Create the page that displays the details of a specific user. The user details page should display all the properties of the user, including their ID, first name, last name, age, gender, email, phone, username, birthdate, height, weight, education, and company details. The user details page should also display the list of courses associated with the selected user.
+
+6. **Retrieve course data**: Retrieve the course data associated with the user. Filter the course data based on the user ID and display the filtered results on the user details page.
+
+7. **Course selection**: When a user clicks on a link to view the details of a course, the application should redirect to the course details page with the id of the selected course as a **query parameter**
+
+8. **Course details page**: Create the page that displays the details of a specific course. The course page should display all the properties of the course, including the user's enrolled for the selected course.
 
 #### 3. Extra (not mandatory)
 
