@@ -5,9 +5,9 @@
 -   Your assignment should be done in your own github repository (you can invite me or you can send me the link after completion).
 -   Don't manipulate the `users.json` and `courses.json` directly if you only wish to complete #1 and #2. All the code should be implemented in a **programatic way**.
 -   The overall solution should have three pages:  <br>
-    \-- `index.html` (list of users)  <br>
-    \-- `user.html`   <br>
-    \-- `course.html`  <br>
+    \- `index.html` (list of users)  <br>
+    \- `user.html`   <br>
+    \- `course.html`  <br>
 -   You don't need to use SQL or any other server-side languages. The whole mock solution should be done in **HTML 5**, **CSS**, **JavaScript** (or any JS framework that you are most comfortable with like e.g React).
 -   Nope, `courses.json` is not broken. You should find a way to actually determine if you need to show only one or more user/(s) enrolled.
 -   Try your best to complete atleast #1 and #2. Thus, is not mandatory to complete all of them.
