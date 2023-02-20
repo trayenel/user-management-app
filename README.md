@@ -21,7 +21,7 @@
 -   Use bootstrap 5 or any css framework that you are most comfortable with.
 -   The app should have a header with the logo on the left side and a logout button on the right (use bootstrap row, container, col, flexbox etc.).
 -   For index.html there should be an option for view mode - table view or card view
--   The application should be responsive: on larger screens display 4 users in a row, on medium screens 2 and on mobile only one.
+-   The application should be responsive: on larger screens you should display 4 users in a row, on medium screens 2 in a row and on mobile only one.
 -   The design should be clean and modern - use websites like [Dribble](https://dribbble.com/) or [Behance](https://www.behance.net/) for UI inspiration.
 
 #### #2. Data retrieval & display
