@@ -45,7 +45,7 @@
 
 3. **Course details page**: Create the page that displays the details of a specific course. The course page should display all the properties of the course, including the user's enrolled for the selected course.
 
-#### #3. Extra (not mandatory but can be a decision factor)
+#### #3. Extra (not mandatory but will be a decision factor)
 
 -   Add a filter functionality for user listing page - basically a search - be creative.
 -   Use Fetch/Ajax to make REST API Calls using [DummyJSON](https://dummyjson.com/docs/posts) with the following functionalities for **POSTS**: <br>
