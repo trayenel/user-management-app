@@ -24,7 +24,9 @@
 -   The application should be responsive: especially **users listing page** - on larger screens you should display four users in a row, on medium screens two users in a row and on mobile only one user per row.
 -   The design should be clean and modern - use websites like [Dribble](https://dribbble.com/) or [Behance](https://www.behance.net/) for UI inspiration.
 
-#### #2. Data retrieval & display
+### #2. Data retrieval & display
+
+#### **Users**
 
 1. **Users listing page**: Create a page that displays a list of all users. Each user in the list should display their first name, last name, and email. The user listing page should include a link to view the details of each user. 
 
@@ -36,11 +38,12 @@
 
 5. **User details page**: Create the page that displays the details of a specific user. The user details page should display all the properties of the user, including their ID, first name, last name, age, gender, email, phone, username, birthdate, height, weight, education, and company details. The user details page should also display the list of courses associated with the selected user.
 
-6. **Retrieve course data**: Retrieve the course data associated with the user. Filter the course data based on the user ID and display the filtered results on the user details page.
+#### **Courses**
+1. **Retrieve course data**: Retrieve the course data associated with the user. Filter the course data based on the user ID and display the filtered results on the user details page.
 
-7. **Course selection**: When a user clicks on a link to view the details of a course, the application should redirect to the course details page with the id of the selected course as a **query parameter**
+2. **Course selection**: When a user clicks on a link to view the details of a course, the application should redirect to the course details page with the id of the selected course as a **query parameter**
 
-8. **Course details page**: Create the page that displays the details of a specific course. The course page should display all the properties of the course, including the user's enrolled for the selected course.
+3. **Course details page**: Create the page that displays the details of a specific course. The course page should display all the properties of the course, including the user's enrolled for the selected course.
 
 #### #3. Extra (not mandatory but can be a decision factor)
 
