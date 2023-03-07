@@ -1,5 +1,8 @@
 ## Technical Assignment - Interview
 
+### Before you start the assignment
+After you create your own private repository, git clone this project and **send me an invitation**.
+
 ### Important keynotes
 
 -   Your assignment should be done in your own github repository (you can invite me or you can send me the link after completion). The repo should be private.
