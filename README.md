@@ -5,7 +5,7 @@ After you create your own private repository, git clone this project and **send 
 
 ### Important keynotes
 
--   Your assignment should be done in your own github repository (you have to invite me after completion). The repo should be private.
+-   Your assignment should be done in your own github repository (you have to invite me during (preferably) or after completion). The repo should be private.
 -   Don't manipulate the `users.json` and `courses.json` directly if you only wish to complete #1 and #2. All the code should be implemented in a **programatic way**.
 -   The overall solution should have three pages:  <br>
     \- `index.html` (list of users)  <br>
