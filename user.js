@@ -4,19 +4,19 @@ import {getData} from "./utils.js";
 //Get DOM container
 const $userContainer = $(".user-container");
 
-//Get user based on query params
-const userId = new URLSearchParams(window.location.search).get("userId");
+//Get user id based on query params and match with array index
+const paramUserId = new URLSearchParams(window.location.search).get("userId");
+const usrIdx = users.findIndex(user => user.id === Number(paramUserId))
+const user = users[usrIdx]
 
-const user = users[userId];
-
-console.log(user)
-/*
-
-const relevatCourses = data.filter((course) => course.userId === userId)
+//Get courses information excluding arrays ATM
+const data = await getData('./assets/courses.json')
+console.log(data)
+const relevatCourses = data.filter((course) => course.userId === paramUserId)
 console.log(relevatCourses)
 
-*/
 //Dynamically render user details on page
+
 function renderUserDetails() {
   $userContainer.html(`<p>${user.first_name}</p>
     <p>${user.last_name}</p>
@@ -32,9 +32,13 @@ function renderUserDetails() {
                 <p>Company: ${user.company.name}</p>
                 <p>${user.id}</p>
   <h1>COURSES</h1>
-  <p></p>
-  
   `);
 }
 
+function getCourses() {
+  const courseContainer = $('<span></span>')
+  relevatCourses.forEach(course => {
+    console.log(course)
+  } )
+}
 renderUserDetails();

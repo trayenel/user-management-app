@@ -24,28 +24,28 @@ function renderTable() {
         </thead>
     </table>`);
 
-  const $table = $(".table");
+  const table = $(".table");
 
-  const $tableBody = $("<tbody></tbody>");
+  const tableBody = $("<tbody></tbody>");
 
   //Create rows for each user
 
   users.forEach((user, i) => {
-    const $tableRow = $(`
+    const tableRow = $(`
             <tr>
                 <th class="d-none d-sm-table-cell">${i + 1}</th>
                 <td>${user.first_name} ${user.last_name}</td>
                 <td>${user.email}</td>
                 <td class="d-none d-sm-table-cell">
-                    <a class="btn btn-primary btn-sm link-btn" href="user.html?userId=${user.id}" role="button">Show info</a>
+                    <a class="btn btn-primary btn-sm" href="user.html?userId=${user.id}" role="button">Show info</a>
                 </td>
             </tr>
         `);
 
-    $tableBody.append($tableRow);
+    tableBody.append($tableRow);
   });
 
-  $table.append($tableBody);
+  table.append($tableBody);
 }
 
 renderTable();
