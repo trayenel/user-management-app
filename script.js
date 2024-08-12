@@ -2,12 +2,14 @@ import { getData } from "./utils.js";
 
 //Loading data from JSON file and unpacking it
 const data = await getData("./assets/users.json");
-const users = data.users;
+export const users = data.users;
 
-const $container = $(".user-container")
+const $container = $(".user-container");
 
 //Render table dynamically using the users array.
 function renderTable() {
+  //Add table element to container.
+
   $container.html(`
     <table class="table table-striped shadow mt-4">
         <thead class="visible@l">
@@ -26,8 +28,9 @@ function renderTable() {
 
   const $tableBody = $("<tbody></tbody>");
 
+  //Create rows for each user
+
   users.forEach((user, i) => {
-    console.log(user);
     const $tableRow = $(`
             <tr>
                 <th class="d-none d-sm-table-cell">${i + 1}</th>
@@ -42,7 +45,7 @@ function renderTable() {
     $tableBody.append($tableRow);
   });
 
-  $table.append($tableBody)
+  $table.append($tableBody);
 }
 
-renderTable()
+renderTable();
