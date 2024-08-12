@@ -1,178 +1,178 @@
 [
-    {
-        "id": 1,
-        "userId": 1,
-        "duration": "12 weeks",
-        "category": "Programming",
-        "title": "Introduction to Python",
-        "description": "Learn the basics of Python programming language."
-    },
-    {
-        "id": 2,
-        "userId": 1,
-        "duration": "16 weeks",
-        "category": "Data Science",
-        "title": "Data Analytics with Python",
-        "description": "Learn how to perform data analytics with Python."
-    },
-    {
-        "id": 3,
-        "userId": 2,
-        "duration": "8 weeks",
-        "category": "Marketing",
-        "title": "Digital Marketing",
-        "description": "Learn the principles and practices of digital marketing."
-    },
-    {
-        "id": 4,
-        "userId": 2,
-        "duration": "10 weeks",
-        "category": "Business",
-        "title": "Entrepreneurship",
-        "description": "Learn the key skills and strategies for starting your own business."
-    },
-    {
-        "id": 5,
-        "userId": 3,
-        "duration": "12 weeks",
-        "category": "Graphic Design",
-        "title": "Introduction to Adobe Photoshop",
-        "description": "Learn the basics of Adobe Photoshop for graphic design."
-    },
-    {
-        "id": 6,
-        "userId": 3,
-        "duration": "8 weeks",
-        "category": "Web Design",
-        "title": "Introduction to HTML and CSS",
-        "description": "Learn the basics of web design with HTML and CSS."
-    },
-    {
-        "id": 7,
-        "userId": 4,
-        "duration": "10 weeks",
-        "category": "Foreign Language",
-        "title": "Spanish for Beginners",
-        "description": "Learn the basics of the Spanish language."
-    },
-    {
-        "id": 8,
-        "userId": 4,
-        "duration": "12 weeks",
-        "category": "Foreign Language",
-        "title": "French for Beginners",
-        "description": "Learn the basics of the French language."
-    },
-    {
-        "id": 9,
-        "userId": 5,
-        "duration": "8 weeks",
-        "category": "Music",
-        "title": "Introduction to Guitar",
-        "description": "Learn the basics of playing guitar."
-    },
-    {
-        "id": 10,
-        "userId": 5,
-        "duration": "12 weeks",
-        "category": "Music",
-        "title": "Introduction to Piano",
-        "description": "Learn the basics of playing piano."
-    },
-    {
-        "id": 11,
-        "userId": 6,
-        "duration": "8 weeks",
-        "category": "Fitness",
-        "title": "Yoga for Beginners",
-        "description": "Learn the basics of yoga and meditation."
-    },
-    {
-        "id": 12,
-        "userId": 6,
-        "duration": "12 weeks",
-        "category": "Fitness",
-        "title": "Strength Training",
-        "description": "Learn how to build strength and tone your body."
-    },
-    {
-        "id": 13,
-        "userId": 7,
-        "duration": "10 weeks",
-        "category": "Finance",
-        "title": "Introduction to Investing",
-        "description": "Learn the basics of investing in stocks and other assets."
-    },
-    {
-        "id": 14,
-        "userId": 8,
-        "duration": "12 weeks",
-        "category": "Cooking",
-        "title": "Introduction to Italian Cuisine",
-        "description": "Learn the basics of Italian cooking, including pasta dishes and sauces."
-    },
-    {
-        "id": 15,
-        "userId": 9,
-        "duration": "8 weeks",
-        "category": "Crafts",
-        "title": "Knitting for Beginners",
-        "description": "Learn the basics of knitting, including how to cast on, knit, purl, and bind off."
-    },
-    {
-        "id": 16,
-        "userId": 9,
-        "duration": "12 weeks",
-        "category": "Art",
-        "title": "Introduction to Watercolor Painting",
-        "description": "Learn the basics of watercolor painting, including color theory, brush techniques, and composition."
-    },
-    {
-        "id": 17,
-        "userId": 10,
-        "duration": "10 weeks",
-        "category": "Photography",
-        "title": "Introduction to Digital Photography",
-        "description": "Learn the basics of digital photography, including composition, exposure, and post-processing."
-    },
-    {
-        "id": 18,
-        "userId": 11,
-        "duration": "12 weeks",
-        "category": "Writing",
-        "title": "Fiction Writing",
-        "description": "Learn the key elements of fiction writing, including character, plot, and setting."
-    },
-    {
-        "id": 19,
-        "userId": [12,9],
-        "duration": "8 weeks",
-        "category": "Cooking",
-        "title": "Introduction to Thai Cuisine",
-        "description": "Learn the basics of Thai cooking, including curries, stir-fries, and noodle dishes."
-    },
-    {
-        "id": 20,
-        "userId": [13,9,1],
-        "duration": "10 weeks",
-        "category": "Fitness",
-        "title": "Running for Beginners",
-        "description": "Learn how to start a running program and improve your endurance."
-    },
-    {
-        "id": 21,
-        "userId": [14,10,2],
-        "duration": "12 weeks",
-        "category": "Foreign Language",
-        "title": "German for Beginners",
-        "description": "Learn the basics of the German language."
-    },
-    {
-        "id": 22,
-        "userId": [15,5],
-        "duration": "8 weeks",
-        "category": "Web Development",
-        "title": "Front-End Web Development",
-        "description": "Learn the basics of front-end web development with HTML, CSS, and JavaScript."
-    }
+  {
+    "id": 1,
+    "userId": 1,
+    "duration": "12 weeks",
+    "category": "Programming",
+    "title": "Introduction to Python",
+    "description": "Learn the basics of Python programming language."
+  },
+  {
+    "id": 2,
+    "userId": 1,
+    "duration": "16 weeks",
+    "category": "Data Science",
+    "title": "Data Analytics with Python",
+    "description": "Learn how to perform data analytics with Python."
+  },
+  {
+    "id": 3,
+    "userId": 2,
+    "duration": "8 weeks",
+    "category": "Marketing",
+    "title": "Digital Marketing",
+    "description": "Learn the principles and practices of digital marketing."
+  },
+  {
+    "id": 4,
+    "userId": 2,
+    "duration": "10 weeks",
+    "category": "Business",
+    "title": "Entrepreneurship",
+    "description": "Learn the key skills and strategies for starting your own business."
+  },
+  {
+    "id": 5,
+    "userId": 3,
+    "duration": "12 weeks",
+    "category": "Graphic Design",
+    "title": "Introduction to Adobe Photoshop",
+    "description": "Learn the basics of Adobe Photoshop for graphic design."
+  },
+  {
+    "id": 6,
+    "userId": 3,
+    "duration": "8 weeks",
+    "category": "Web Design",
+    "title": "Introduction to HTML and CSS",
+    "description": "Learn the basics of web design with HTML and CSS."
+  },
+  {
+    "id": 7,
+    "userId": 4,
+    "duration": "10 weeks",
+    "category": "Foreign Language",
+    "title": "Spanish for Beginners",
+    "description": "Learn the basics of the Spanish language."
+  },
+  {
+    "id": 8,
+    "userId": 4,
+    "duration": "12 weeks",
+    "category": "Foreign Language",
+    "title": "French for Beginners",
+    "description": "Learn the basics of the French language."
+  },
+  {
+    "id": 9,
+    "userId": 5,
+    "duration": "8 weeks",
+    "category": "Music",
+    "title": "Introduction to Guitar",
+    "description": "Learn the basics of playing guitar."
+  },
+  {
+    "id": 10,
+    "userId": 5,
+    "duration": "12 weeks",
+    "category": "Music",
+    "title": "Introduction to Piano",
+    "description": "Learn the basics of playing piano."
+  },
+  {
+    "id": 11,
+    "userId": 6,
+    "duration": "8 weeks",
+    "category": "Fitness",
+    "title": "Yoga for Beginners",
+    "description": "Learn the basics of yoga and meditation."
+  },
+  {
+    "id": 12,
+    "userId": 6,
+    "duration": "12 weeks",
+    "category": "Fitness",
+    "title": "Strength Training",
+    "description": "Learn how to build strength and tone your body."
+  },
+  {
+    "id": 13,
+    "userId": 7,
+    "duration": "10 weeks",
+    "category": "Finance",
+    "title": "Introduction to Investing",
+    "description": "Learn the basics of investing in stocks and other assets."
+  },
+  {
+    "id": 14,
+    "userId": 8,
+    "duration": "12 weeks",
+    "category": "Cooking",
+    "title": "Introduction to Italian Cuisine",
+    "description": "Learn the basics of Italian cooking, including pasta dishes and sauces."
+  },
+  {
+    "id": 15,
+    "userId": 9,
+    "duration": "8 weeks",
+    "category": "Crafts",
+    "title": "Knitting for Beginners",
+    "description": "Learn the basics of knitting, including how to cast on, knit, purl, and bind off."
+  },
+  {
+    "id": 16,
+    "userId": 9,
+    "duration": "12 weeks",
+    "category": "Art",
+    "title": "Introduction to Watercolor Painting",
+    "description": "Learn the basics of watercolor painting, including color theory, brush techniques, and composition."
+  },
+  {
+    "id": 17,
+    "userId": 10,
+    "duration": "10 weeks",
+    "category": "Photography",
+    "title": "Introduction to Digital Photography",
+    "description": "Learn the basics of digital photography, including composition, exposure, and post-processing."
+  },
+  {
+    "id": 18,
+    "userId": 11,
+    "duration": "12 weeks",
+    "category": "Writing",
+    "title": "Fiction Writing",
+    "description": "Learn the key elements of fiction writing, including character, plot, and setting."
+  },
+  {
+    "id": 19,
+    "userId": [12, 9],
+    "duration": "8 weeks",
+    "category": "Cooking",
+    "title": "Introduction to Thai Cuisine",
+    "description": "Learn the basics of Thai cooking, including curries, stir-fries, and noodle dishes."
+  },
+  {
+    "id": 20,
+    "userId": [13, 9, 1],
+    "duration": "10 weeks",
+    "category": "Fitness",
+    "title": "Running for Beginners",
+    "description": "Learn how to start a running program and improve your endurance."
+  },
+  {
+    "id": 21,
+    "userId": [14, 10, 2],
+    "duration": "12 weeks",
+    "category": "Foreign Language",
+    "title": "German for Beginners",
+    "description": "Learn the basics of the German language."
+  },
+  {
+    "id": 22,
+    "userId": [15, 5],
+    "duration": "8 weeks",
+    "category": "Web Development",
+    "title": "Front-End Web Development",
+    "description": "Learn the basics of front-end web development with HTML, CSS, and JavaScript."
+  }
 ]
