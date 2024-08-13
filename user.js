@@ -36,15 +36,18 @@ function renderUserDetails() {
   if (!user) {
     userContainer.html(`Error 404 user not found`);
   } else {
+    let defaultPicLink = './assets/silhouette-profile-pic-1.png'
     userContainer.html(`<div class="card d-flex flex-row w-100 shadow" style="width: 18rem;">
   <div class="d-flex flex-column align-items-center card-body">
-   <img src="./assets/silhouette-profile-pic-1.png" class="user-profile-pic" alt="..."> 
+   <img src="${user.picture ? user.picture : defaultPicLink}" class="user-profile-pic" alt="..."> 
     <h5 class="card-title">${user.first_name} ${user.last_name}</h5>
     <p class="card-text">${user.email}</p>
+    
+    <p class="card-text">${user.company.position} at ${user.company.name}</p>
   </div>
   
   <div class="card-body">
-<form class="form w-100 mt-3  d-flex flex-column gap-3">
+<form class="form w-100 mt-3 h-100  d-flex flex-column gap-3">
     <div class="form-group row">
         <label for="name" class="col-sm-2 col-form-label col-form-label-sm">Name</label>
         <div class="col-sm-10">
@@ -115,15 +118,49 @@ function renderUserDetails() {
     </div>
 
 
+
     <div class="form-group row">
         <label for="Weight" class="col-sm-2 col-form-label col-form-label-sm">Weight</label>
 
         <div class="col-sm-10">
             <input type="text" class="form-control" id="Weight" name="weight" value="${user.weight}"/>
         </div>
-        
-    <button type="submit" class="btn btn-primary btn-edit"  style="width: 10%" value="save">Edit</button>
     </div>
+    
+    <div class="form-group row">
+
+        <label for="company-name" class="col-sm-2 col-form-label col-form-label-sm">Company</label>
+ <div class="col-sm-10">
+            <input type="text" class="form-control" id="company-name" name="company-name" value="${user.company.name}"/>
+        </div>
+        </div>
+    <div class="form-group row">
+    
+        <label for="positon" class="col-sm-2 col-form-label col-form-label-sm">Positon</label>
+       
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="position" name="position" value="${user.company.position}"/>
+        </div>
+        </div>
+
+    <div class="form-group row">
+    
+        <label for="salary" class="col-sm-2 col-form-label col-form-label-sm">Salary</label>
+           <div class="col-sm-10">
+            <input type="text" class="form-control" id="salary" name="salary" value="${user.company.salary}"/>
+        </div>
+        
+    </div>
+      <div class="form-group row align-items-center gap-3">
+     <div class="col-sm-10">
+    <button type="submit" class="btn btn-primary btn-edit"  style="width: 13%" value="save">Edit</button>
+    <button type="submit" class="btn btn-dark btn-cancel"  style="width: 15%" value="cancel">Cancel</button>
+    </div>
+        </div>
+    
+    </div>
+
+ 
 
 </form>
 </div> 
@@ -143,15 +180,18 @@ renderUserDetails();
 let form = $("form");
 form.on("click", "button", (e) => {
   e.preventDefault();
+
   if (e.target.classList.contains("btn-save")) {
     e.target.classList.toggle("btn-edit");
     e.target.classList.toggle("btn-save");
+    e.target.innerText = 'Edit'
     $("input").attr("disabled", true);
     return;
   }
   if (e.target.classList.contains("btn-edit")) {
     e.target.classList.toggle("btn-edit");
     e.target.classList.toggle("btn-save");
+    e.target.innerText = 'Save'
     $("input").attr("disabled", false);
   }
 });
@@ -169,3 +209,4 @@ form.on("click", "button", (e) => {
 
 /*<button type="submit" className="btn btn-primary btn-save" value="save">Save changes</button>
 <button type="button" class="btn btn-secondary btn-cancel">Cancel</button>*/
+console.log(user)
