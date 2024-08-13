@@ -42,10 +42,10 @@ function renderTable() {
             </tr>
         `);
 
-    tableBody.append($tableRow);
+    tableBody.append(tableRow);
   });
 
-  table.append($tableBody);
+  table.append(tableBody);
 }
 
 renderTable();
