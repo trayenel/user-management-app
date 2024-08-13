@@ -2,6 +2,7 @@ import { getData } from "./utils.js";
 
 //Loading data from JSON file and unpacking it
 const data = await getData("./assets/users.json");
+
 export const users = data.users;
 
 const $container = $(".user-container");

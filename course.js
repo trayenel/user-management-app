@@ -1,18 +1,18 @@
-import { courseData } from "./user.js";
 import { users } from "./script.js";
+import { getQueryParam } from "./utils.js";
+import {courseData} from "./user.js";
 
 //Get DOM container
 const userContainer = $(".container");
 
 //Get user id based on query params and match with array index
-const paramCourseId = new URLSearchParams(window.location.search).get(
-  "courseId",
-);
+const paramCourseId = getQueryParam("courseId");
 
 //Get course information including users enrolled.
 const courseIdx = courseData.findIndex(
   (course) => course.id === Number(paramCourseId),
 );
+
 const course = courseData[courseIdx];
 
 const enrolledUsers = users.filter((user) => {
