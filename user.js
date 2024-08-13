@@ -32,8 +32,6 @@ function renderCourses(container) {
   });
 }
 
-console.log(user);
-
 function renderUserDetails() {
   if (!user) {
     userContainer.html(`Error 404 user not found`);
@@ -124,9 +122,8 @@ function renderUserDetails() {
             <input type="text" class="form-control" id="Weight" name="weight" value="${user.weight}"/>
         </div>
         
-    <button type="submit" class="btn btn-primary btn-save"  style="width: 10%" value="save">Edit</button>
+    <button type="submit" class="btn btn-primary btn-edit"  style="width: 10%" value="save">Edit</button>
     </div>
-
 
 </form>
 </div> 
@@ -134,11 +131,31 @@ function renderUserDetails() {
   
   `);
 
+    let input = $("input");
+
+    input.attr("disabled", true);
     // renderCourses(userContainer);
   }
 }
 
 renderUserDetails();
+
+let form = $("form");
+form.on("click", "button", (e) => {
+  e.preventDefault();
+  if (e.target.classList.contains("btn-save")) {
+    e.target.classList.toggle("btn-edit");
+    e.target.classList.toggle("btn-save");
+    $("input").attr("disabled", true);
+    return;
+  }
+  if (e.target.classList.contains("btn-edit")) {
+    e.target.classList.toggle("btn-edit");
+    e.target.classList.toggle("btn-save");
+    $("input").attr("disabled", false);
+  }
+});
+
 /*
 <p class="card-title">Age: ${user.age}</p>
 <p class="card-title">Gender: ${user.gender}</p>
