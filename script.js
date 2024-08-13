@@ -11,7 +11,7 @@ function renderTable() {
   //Add table element to container.
 
   $container.html(`
-    <table class="table table-striped shadow mt-4">
+    <table class="table table-striped shadow mt-5">
         <thead class="visible@l">
         <tr>
             <td>
