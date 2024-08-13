@@ -150,10 +150,10 @@ function renderUserDetails() {
         </div>
         
     </div>
-      <div class="form-group row align-items-center gap-3">
+      <div class="form-group row">
      <div class="col-sm-10">
-    <button type="submit" class="btn btn-primary btn-edit"  style="width: 13%" value="save">Edit</button>
-    <button type="submit" class="btn btn-primary btn-cancel"  style="width: 15%" value="cancel" disabled>Cancel</button>
+    <button type="submit" class="btn btn-primary btn-edit text-nowrap" value="save">Edit</button>
+    <button type="submit" class="btn btn-primary btn-cancel text-nowrap" value="cancel" disabled>Cancel</button>
     </div>
         </div>
     </div>
@@ -191,17 +191,4 @@ form.on("click", "button", (e) => {
   }
 });
 
-/*
-<p class="card-title">Age: ${user.age}</p>
-<p class="card-title">Gender: ${user.gender}</p>
-<p class="card-title">Phone: ${user.phone}</p>
-<p class="card-title">Username: ${user.username}</p>
-<p class="card-title">Birthdate: ${user.birthdate}</p>
-<p class="card-title">Height: ${user.height}</p>
-<p class="card-title">Weight: ${user.weight}</p>
-<p class="card-title">Education: ${user.education}</p>
-*/
-
-/*<button type="submit" className="btn btn-primary btn-save" value="save">Save changes</button>
-<button type="button" class="btn btn-secondary btn-cancel">Cancel</button>*/
 console.log(user);
