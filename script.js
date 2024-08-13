@@ -1,10 +1,6 @@
-import { getData } from "./utils.js";
+import { fetchStorage, getData, saveStorage, users } from "./utils.js";
 
-//Loading data from JSON file and unpacking it
-const data = await getData("./assets/users.json");
-
-export const users = data.users;
-
+//Get DOM container
 const $container = $(".user-container");
 
 //Render table dynamically using the users array.
@@ -30,7 +26,6 @@ function renderTable() {
   const tableBody = $("<tbody></tbody>");
 
   //Create rows for each user
-
   users.forEach((user, i) => {
     const tableRow = $(`
             <tr>

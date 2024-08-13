@@ -1,5 +1,10 @@
-import { users } from "./script.js";
-import { getData, getQueryParam } from "./utils.js";
+import {
+  courses,
+  getData,
+  getQueryParam,
+  saveStorage,
+  users,
+} from "./utils.js";
 
 //Get DOM container
 const userContainer = $(".user-container");
@@ -9,12 +14,16 @@ const paramUserId = getQueryParam("userId");
 const usrIdx = users.findIndex((user) => user.id === Number(paramUserId));
 const user = users[usrIdx];
 
-//Get courses information including courses with multiple users.
-export const courseData = await getData("./assets/courses.json");
+if (!user.posts) {
+  const posts = await getData(`https://dummyjson.com/posts/user/${user.id}`);
+  user.posts = []
+    user.posts.push(...posts.posts)
+  saveStorage("users", users);
+}
 
-//Dynamically render user details on page
+//Get courses information including courses with multiple users.
 async function renderCourses(container) {
-  const relevantCourses = courseData.filter((course) => {
+  const relevantCourses = courses.filter((course) => {
     if (Array.isArray(course.userId)) {
       return course.userId.includes(Number(paramUserId));
     }
@@ -33,28 +42,23 @@ async function renderCourses(container) {
 }
 
 //Get posts from DummyJson api
-async function getUserPosts() {
-  const userId = user.id;
-  return  await fetch(
-    `https://dummyjson.com/posts/user/${userId}`,
-  ).then((res) => res.json());
-}
-
 async function createPost(body, title) {
-  const userId = user.id;
- return await fetch('https://dummyjson.com/posts/add', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+  const newPosts = await fetch("https://dummyjson.com/posts/add", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       title: title,
-      userId: userId,
+      userId: user.id,
       body: body,
-      reactions: {likes: 0, dislikes: 0}
-    })
-  })
-      .then(res => res.json())
+      reactions: { likes: 0, dislikes: 0 },
+    }),
+  }).then((res) => res.json());
+
+  user.posts.push(newPosts);
+  saveStorage("users", users);
 }
 
+//Dynamically render user details on page
 function renderUserDetails() {
   if (!user) {
     userContainer.html(`Error 404 user not found`);
@@ -62,7 +66,7 @@ function renderUserDetails() {
     let defaultPicLink = "./assets/silhouette-profile-pic-1.png";
 
     userContainer.html(`
- <div class="card d-flex flex-row w-100 shadow" style="width: 18rem;">
+ <div class="card d-flex flex-row w-100 shadow h-100" style="width: 18rem;">
   <div class="d-flex flex-column align-items-center card-body">
     <img src="${user.picture ? user.picture : defaultPicLink}" class="user-profile-pic" alt="...">
     <h5 class="card-title">${user.first_name} ${user.last_name}</h5>
@@ -80,7 +84,7 @@ function renderUserDetails() {
       <div class="form-group row">
         <label for="name" class="col-sm-2 col-form-label col-form-label-sm">Name</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="name" value="${user.first_name}" />
+          <input type="text" class="form-control" id="name" name='fullname' value="${user.first_name} ${user.last_name}" />
         </div>
       </div>
 
@@ -172,27 +176,61 @@ function renderUserDetails() {
 </div>
   `);
 
-    $("form").on("click", "button", (e) => {
-      e.preventDefault();
+    renderCourses($(".courses-list"));
+    $("input").attr("disabled", true);
+
+
+    $('.form').on('click', 'button', (e) =>{
+      e.preventDefault()
       let editBtn = $(".btn-edit");
       let cancelBtn = $(".btn-cancel");
 
+      if (
+          e.target.classList.contains("btn-save") &&
+          e.target.classList.contains("btn-edit")
+      ) {
+        const form = document.querySelector('.form')
+
+        const formData = new FormData(form);
+
+        let newUser = { ...user };
+
+        formData.forEach((value, key) => {
+          console.log(value)
+          newUser[key] = value;
+        });
+
+        users[usrIdx] = newUser;
+
+        saveStorage("users", users);
+
+        editBtn.html("Edit");
+        editBtn.removeClass("btn-save");
+        $("input").attr("disabled", true);
+        cancelBtn.attr("disabled", true);
+
+        return;
+      }
+
       if (e.target.classList.contains("btn-cancel")) {
         editBtn.html("Edit");
+        editBtn.removeClass("save-btn");
         $("input").attr("disabled", true);
         cancelBtn.attr("disabled", true);
         return;
       }
+
       if (e.target.classList.contains("btn-edit")) {
+
+        e.preventDefault();
         editBtn.html("Save");
         cancelBtn.attr("disabled", false);
+        editBtn.addClass("btn-save");
         $("input").attr("disabled", false);
       }
     });
-
-    renderCourses($(".courses-list"));
-    $("input").attr("disabled", true);
   }
 }
 
 renderUserDetails();
+
