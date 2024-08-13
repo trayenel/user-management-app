@@ -26,12 +26,12 @@ function renderCourses(container) {
     let courseContainer = $(`<span></span>`);
     console.log(course);
     courseContainer.html(`
-    <a class=" link-underline-opacity-0" href="course.html?courseId=${course.id}">${course.title}</a>`);
+    <a class="link-primary link-opacity-75-hover link-underline-opacity-0" href="course.html?courseId=${course.id}">${course.title}</a>`);
 
     container.append(courseContainer);
   });
 }
-renderUserDetails();
+
 function renderUserDetails() {
   if (!user) {
     userContainer.html(`Error 404 user not found`);
@@ -48,9 +48,10 @@ function renderUserDetails() {
                 <p>Weight: ${user.weight}</p>
                 <p>Education: ${user.education}</p>
                 <p>Company: ${user.company.name}</p>
-                <p>${user.id}</p>
   `);
 
     renderCourses(userContainer);
   }
 }
+
+renderUserDetails();
