@@ -175,20 +175,18 @@ renderUserDetails();
 let form = $("form");
 form.on("click", "button", (e) => {
   e.preventDefault();
+  let editBtn = $(".btn-edit");
+  let cancelBtn = $(".btn-cancel");
 
-  if (e.target.classList.contains("btn-cancel") || e.target.classList.contains('btn-save')) {
-    e.target.classList.toggle("btn-edit");
-    e.target.classList.toggle("btn-save");
-    e.target.innerText = "Edit";
+  if (e.target.classList.contains("btn-cancel")) {
+    editBtn.html("Edit");
     $("input").attr("disabled", true);
-    $(".btn-cancel").attr("disabled", true);
+    cancelBtn.attr("disabled", true);
     return;
   }
   if (e.target.classList.contains("btn-edit")) {
-    e.target.classList.toggle("btn-edit");
-    e.target.classList.toggle("btn-save");
-    $(".btn-cancel").attr("disabled", false);
-    e.target.innerText = "Save";
+    editBtn.html("Save");
+    cancelBtn.attr("disabled", false);
     $("input").attr("disabled", false);
   }
 });
