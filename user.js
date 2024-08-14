@@ -16,13 +16,13 @@ const user = users[usrIdx];
 
 if (!user.posts) {
   const posts = await getData(`https://dummyjson.com/posts/user/${user.id}`);
-  user.posts = []
-    user.posts.push(...posts.posts)
+  user.posts = [];
+  user.posts.push(...posts.posts);
   saveStorage("users", users);
 }
 
 //Get courses information including courses with multiple users.
-async function renderCourses(container) {
+function renderCourses(container) {
   const relevantCourses = courses.filter((course) => {
     if (Array.isArray(course.userId)) {
       return course.userId.includes(Number(paramUserId));
@@ -31,11 +31,9 @@ async function renderCourses(container) {
   });
 
   relevantCourses.forEach((course) => {
-    let span = $(
-      `<li class="list-group-item">
+    let span = $(`<li class="list-group-item">
       <a class="link-primary link-opacity-75-hover link-underline-opacity-0" href="course.html?courseId=${course.id}">${course.title}</a>
-      </li>`,
-    );
+      </li>`);
 
     container.append(span);
   });
@@ -68,7 +66,12 @@ function renderUserDetails() {
     userContainer.html(`
  <div class="card d-flex flex-row w-100 shadow h-100" style="width: 18rem;">
   <div class="d-flex flex-column align-items-center card-body">
+ 
+ <label for="avatar">
     <img src="${user.picture ? user.picture : defaultPicLink}" class="user-profile-pic" alt="...">
+    </label> 
+<input type="file" id="avatar" accept="image/png, image/jpeg" class="d-none"/> 
+
     <h5 class="card-title">${user.first_name} ${user.last_name}</h5>
     <p class="card-text">${user.email}</p>
     <p class="card-text">${user.company.position} at ${user.company.name}</p>
@@ -82,91 +85,106 @@ function renderUserDetails() {
   <div class="card-body">
     <form class="form w-100 mt-3 h-100 d-flex flex-column gap-3">
       <div class="form-group row">
-        <label for="name" class="col-sm-2 col-form-label col-form-label-sm">Name</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control" id="name" name='fullname' value="${user.first_name} ${user.last_name}" />
+        <label for="name" class="col-xl-2 col-form-label col-form-label-sm">Name</label>
+        <div class="col-xl-10">
+          <input type="text" class="form-control" id="name" value="${user.first_name} ${user.last_name}" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label for="email" class="col-sm-2 col-form-label col-form-label-sm">Email</label>
-        <div class="col-sm-10">
+        <label for="email" class="col-xl-2 col-form-label col-form-label-sm">Email</label>
+        <div class="col-xl-10">
           <input type="email" class="form-control" id="email" name="email" value="${user.email}" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label for="Age" class="col-sm-2 col-form-label col-form-label-sm">Age</label>
-        <div class="col-sm-10">
+        <label for="Age" class="col-xl-2 col-form-label col-form-label-sm">Age</label>
+        <div class="col-xl-10">
           <input type="text" class="form-control" id="Age" name="age" value="${user.age}" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label for="Gender" class="col-sm-2 col-form-label col-form-label-sm">Gender</label>
-        <div class="col-sm-10">
+        <label for="Gender" class="col-xl-2 col-form-label col-form-label-sm">Gender</label>
+        <div class="col-xl-10">
           <input type="text" class="form-control" id="Gender" name="gender" value="${user.gender}" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label for="Phone" class="col-sm-2 col-form-label col-form-label-sm">Phone</label>
-        <div class="col-sm-10">
+        <label for="Phone" class="col-xl-2 col-form-label col-form-label-sm">Phone</label>
+        <div class="col-xl-10">
           <input type="text" class="form-control" id="Phone" name="phone" value="${user.phone}" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label for="Username" class="col-sm-2 col-form-label col-form-label-sm">Username</label>
-        <div class="col-sm-10">
+        <label for="Username" class="col-xl-2 col-form-label col-form-label-sm">Username</label>
+        <div class="col-xl-10">
           <input type="text" class="form-control" id="Username" name="username" value="${user.username}" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label for="BirthDate" class="col-sm-2 col-form-label col-form-label-sm">Birth Date</label>
-        <div class="col-sm-10">
+        <label for="BirthDate" class="col-xl-2 col-form-label col-form-label-sm">Birth Date</label>
+        <div class="col-xl-10">
           <input type="text" class="form-control" id="BirthDate" name="birthdate" value="${user.birthdate}" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label for="Height" class="col-sm-2 col-form-label col-form-label-sm">Height</label>
-        <div class="col-sm-10">
+        <label for="Height" class="col-xl-2 col-form-label col-form-label-sm">Height</label>
+        <div class="col-xl-10">
           <input type="text" class="form-control" id="Height" name="height" value="${user.height}" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label for="Weight" class="col-sm-2 col-form-label col-form-label-sm">Weight</label>
-        <div class="col-sm-10">
+        <label for="Weight" class="col-xl-2 col-form-label col-form-label-sm">Weight</label>
+        <div class="col-xl-10">
           <input type="text" class="form-control" id="Weight" name="weight" value="${user.weight}" />
         </div>
       </div>
-
+      
+      
       <div class="form-group row">
-        <label for="company-name" class="col-sm-2 col-form-label col-form-label-sm">Company</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control" id="company-name" name="company-name" value="${user.company.name}" />
+        <label for="Weight" class="col-xl-2 col-form-label col-form-label-sm">Education</label>
+        <div class="col-xl-10">
+          <input type="text" class="form-control" id="Weight" name="education" value="${user.education}" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label for="position" class="col-sm-2 col-form-label col-form-label-sm">Position</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control" id="position" name="position" value="${user.company.position}" />
+        <label for="company-name" class="col-xl-2 col-form-label col-form-label-sm">Company</label>
+        <div class="col-xl-10">
+          <input type="text" class="form-control" id="company-name" name="cname" value="${user.company.name}" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label for="salary" class="col-sm-2 col-form-label col-form-label-sm">Salary</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control" id="salary" name="salary" value="${user.company.salary}" />
+        <label for="position" class="col-xl-2 col-form-label col-form-label-sm">Position</label>
+        <div class="col-xl-10">
+          <input type="text" class="form-control" id="position" name="cposition" value="${user.company.position}" />
         </div>
       </div>
 
       <div class="form-group row">
-        <div class="col-sm-10">
+        <label for="salary" class="col-xl-2 col-form-label col-form-label-sm">Salary</label>
+        <div class="col-xl-10">
+          <input type="text" class="form-control" id="salary" name="csalary" value="${user.company.salary}" />
+        </div>
+      </div>
+      
+       <div class="form-group row">
+        <label for="startdate" class="col-xl-2 col-form-label col-form-label-sm">Start date</label>
+        <div class="col-xl-10">
+          <input type="text" class="form-control" id="startdate" name="cstart_date" value="${user.company.start_date}" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-xl-10">
           <button type="submit" class="btn btn-primary btn-edit text-nowrap" value="save">Edit</button>
           <button type="button" class="btn btn-primary btn-cancel text-nowrap" value="cancel" disabled>Cancel</button>
         </div>
@@ -179,25 +197,30 @@ function renderUserDetails() {
     renderCourses($(".courses-list"));
     $("input").attr("disabled", true);
 
-
-    $('.form').on('click', 'button', (e) =>{
-      e.preventDefault()
+    $(".form").on("click", "button", (e) => {
+      e.preventDefault();
       let editBtn = $(".btn-edit");
       let cancelBtn = $(".btn-cancel");
 
       if (
-          e.target.classList.contains("btn-save") &&
-          e.target.classList.contains("btn-edit")
+        e.target.classList.contains("btn-save") &&
+        e.target.classList.contains("btn-edit")
       ) {
-        const form = document.querySelector('.form')
+        const form = document.querySelector(".form");
 
         const formData = new FormData(form);
 
         let newUser = { ...user };
 
+        console.log(newUser);
+        console.log(formData);
         formData.forEach((value, key) => {
-          console.log(value)
-          newUser[key] = value;
+          if (key[0] === "c") {
+            let companyDetail = key.slice(1, key.length);
+            newUser.company[companyDetail] = value;
+          } else {
+            newUser[key] = value;
+          }
         });
 
         users[usrIdx] = newUser;
@@ -209,6 +232,7 @@ function renderUserDetails() {
         $("input").attr("disabled", true);
         cancelBtn.attr("disabled", true);
 
+        window.location.href = `./user.html?userId=${paramUserId}`
         return;
       }
 
@@ -221,7 +245,6 @@ function renderUserDetails() {
       }
 
       if (e.target.classList.contains("btn-edit")) {
-
         e.preventDefault();
         editBtn.html("Save");
         cancelBtn.attr("disabled", false);
@@ -233,4 +256,3 @@ function renderUserDetails() {
 }
 
 renderUserDetails();
-
