@@ -1,14 +1,22 @@
-import { fetchStorage, getData, saveStorage, users } from "./utils.js";
+import { saveStorage, users } from "./utils.js";
 
 //Get DOM container
 const $container = $(".user-container");
+
+users.sort((a, b) => {
+  if (a.first_name.localeCompare(b.first_name) !== 0) {
+    return a.first_name.localeCompare(b.first_name);
+  }
+
+  return a.last_name.localeCompare(b.last_name);
+});
 
 //Render table dynamically using the users array.
 function renderTable() {
   //Add table element to container.
 
   $container.html(`
-    <table class="table table-striped shadow mt-1">
+    <table class="table table-striped shadow mt-2">
         <thead class="visible@l">
         <tr>
             <td>
@@ -25,15 +33,19 @@ function renderTable() {
 
   const tableBody = $("<tbody></tbody>");
 
+  //Check if sort desc is activated
+  let sortedUsers = $(".table-order-btn").hasClass("sortDesc")
+    ? users.toReversed()
+    : users;
   //Create rows for each user
-  users.forEach((user, i) => {
+  sortedUsers.forEach((user, i) => {
     const tableRow = $(`
             <tr>
                 <th class="d-none d-sm-table-cell">${i + 1}</th>
                 <td>${user.first_name} ${user.last_name}</td>
                 <td>${user.email}</td>
                 <td class="d-none d-sm-table-cell">
-                    <a class="btn btn-primary btn-sm" href="user.html?userId=${user.id}" role="button">Show info</a>
+                    <a class="btn btn-primary btn-sm text-nowrap" href="user.html?userId=${user.id}" role="button">Show info</a>
                 </td>
             </tr>
         `);
@@ -45,25 +57,30 @@ function renderTable() {
 }
 
 function renderCard() {
- $container.html(`
+  $container.html(`
     <div class="row text-nowrap custom-grid"></div>`);
 
   const frag = new DocumentFragment();
 
-  users.forEach((user) => {
-    const cardElement = $(`<div class='col-xxl-3 col-lg-6 col-sm-12'>
+  //Check if sort desc is activated
+  let sortedUsers = $(".table-order-btn").hasClass("sortDesc")
+    ? users.toReversed()
+    : users;
+
+  sortedUsers.forEach((user) => {
+    const cardElement = $(`<div class='col-xxl-3 col-lg-6 col-sm-12 mt-2'>
       <div class="card">
       <div class="card-body">
         <h5 class="card-title">${user.first_name} ${user.last_name}</h5>
         <p class="card-text">${user.email}</p>
-        <a href="#" class="btn btn-primary">Show info</a>
+        <a  href="user.html?userId=${user.id}"  class="btn btn-primary">Show info</a>
       </div>
-    </div>`)
+    </div>`);
 
     frag.append(cardElement.get(0));
   });
 
-  $('.custom-grid').append(frag);
+  $(".custom-grid").append(frag);
 }
 
 renderTable();
@@ -71,29 +88,30 @@ renderTable();
 $(".user-control").on("click", "img, button", (e) => {
   e.preventDefault();
   if ($(e.target).is(".table-view-btn")) {
-    renderTable()
+    renderTable();
     return;
   }
 
   if ($(e.target).is(".card-view-btn")) {
-    renderCard()
+    renderCard();
     return;
   }
 
   if ($(e.target).is(".table-order-btn")) {
     $(".table-order-btn").toggleClass("sortDesc");
-    return;
   }
+});
 
+$(".modal").on("click", "button", (e) => {
+  e.preventDefault();
   if ($(e.target).is(".modal-save")) {
     const form = $("#form").get(0);
     const submitter = $(".modal-save").get(0);
 
     const formData = new FormData(form, submitter);
 
-    if (users.find((user) => user.email === formData.get("email"))) {
-      e.preventDefault();
-      console.log("duplicate email");
+    if (users.find((user) => user.email === formData.get("email").trim())) {
+      $(".");
       return;
     }
 
@@ -104,11 +122,13 @@ $(".user-control").on("click", "img, button", (e) => {
     const newUser = { id: userId + 1 };
 
     formData.forEach((value, key) => {
-      newUser[key] = value;
+      newUser[key] = value.trim();
     });
 
     users.push(newUser);
 
     saveStorage("users", users);
+
+    location.reload();
   }
 });

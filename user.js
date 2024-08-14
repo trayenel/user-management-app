@@ -40,7 +40,6 @@ async function createPost(body, title) {
   user.posts.push(newPost);
 
   saveStorage("users", users);
-
 }
 
 //Dynamically render user details on page
@@ -203,9 +202,9 @@ function renderUserDetails() {
         formData.forEach((value, key) => {
           if (key[0] === "c") {
             let companyDetail = key.slice(1, key.length);
-            newUser.company[companyDetail] = value;
+            newUser.company[companyDetail] = value.trim();
           } else {
-            newUser[key] = value;
+            newUser[key] = value.trim();
           }
         });
 
@@ -218,7 +217,7 @@ function renderUserDetails() {
         $(".user").attr("disabled", true);
         cancelBtn.attr("disabled", true);
 
-        location.reload()
+        location.reload();
         return;
       }
 
@@ -360,7 +359,7 @@ $(".post-form").on("click", "button", async (e) => {
       formData.get("title").trim(),
     );
 
-    location.reload()
+    location.reload();
   }
 });
 
@@ -400,16 +399,16 @@ $(".posts").on("click", "button, input", (e) => {
 $(".modal").on("click", "button", (e) => {
   e.preventDefault();
   if ($(e.target).is(".modal-delete")) {
+    const checkedBoxes = $(".secondary-checkbox:checked")
+      .map(function () {
+        return Number($(this).val());
+      })
+      .get();
 
-    const checkedBoxes = $(".secondary-checkbox:checked").map(function() {
-      return Number($(this).val());
-    }).get();
-
-    user.posts = user.posts.filter(post => !checkedBoxes.includes(post.id))
+    user.posts = user.posts.filter((post) => !checkedBoxes.includes(post.id));
 
     saveStorage("users", users);
 
-  location.reload()
+    location.reload();
   }
 });
-
