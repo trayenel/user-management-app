@@ -1,4 +1,11 @@
-import {courses, defaultPicLink, getData, getQueryParam, saveStorage, users,} from "./utils.js";
+import {
+  courses,
+  defaultPicLink,
+  getData,
+  getQueryParam,
+  saveStorage,
+  users,
+} from "./utils.js";
 
 //Get DOM container
 const userContainer = $(".user-container");
@@ -46,7 +53,10 @@ function renderUserDetails() {
   <div class="d-flex flex-column align-items-center card-body">
  
  <label for="avatar">
-    <img src="${user.picture ? user.picture : defaultPicLink}" class="user-profile-pic" alt="...">
+ <div class="profile-pic-wrapper" >
+    <img src="${user.picture ? user.picture : defaultPicLink}" class="user-profile-pic user-profile-pic-hover" alt="...">
+ <span class="profile-pic-text">Change profile pic</span>
+    </div>
     </label> 
 <input type="file" id="avatar" accept="image/png, image/jpeg" class="d-none profile-pic-chooser"/> 
 
@@ -181,15 +191,17 @@ function renderUserDetails() {
       if (file) {
         const reader = new FileReader();
 
-       reader.readAsDataURL(file)
+        reader.readAsDataURL(file);
 
-        reader.addEventListener('load', () => {
-          user.picture = reader.result
+        reader.addEventListener("load", () => {
+          user.picture = reader.result;
 
-          saveStorage('users', users)
-        })
+          saveStorage("users", users);
+
+          location.reload();
+        });
       }
-    })
+    });
   }
 }
 
@@ -300,7 +312,7 @@ userContainer.on("click", "button", (e) => {
   let cancelBtn = $(".btn-cancel");
 
   if ($(e.target).hasClass("btn-save") && $(e.target).hasClass("btn-edit")) {
-    e.preventDefault()
+    e.preventDefault();
     const form = $(".user-form").get(0);
 
     const formData = new FormData(form);

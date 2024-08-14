@@ -1,14 +1,46 @@
 .user-profile-pic {
   height: 150px;
   border-radius: 100px;
-  overflow: hidden;
   justify-self: center;
+  transition: ease-in 0.07s;
+}
+
+.profile-pic-wrapper {
+  border-radius: 100px;
+  overflow: hidden;
+  position: relative;
+}
+
+.profile-pic-wrapper:hover > .user-profile-pic {
+  transform: scale(1.05);
+  filter: blur(1.5px);
+
+}
+
+.profile-pic-wrapper:hover > .profile-pic-text {
+  opacity: 1;
+}
+
+.profile-pic-text {
+  user-select: none;
+  position: absolute;
+  bottom: 65px;
+  left: 15px;
+  z-index: 1;
+  font-size: 13px;
+  transition: ease-in 0.07s;
+  opacity: 0;
+}
+
+.profile-pic-text:hover {
+  visibility: visible;
 }
 
 .small {
   height: 50px;
   border-radius: 25px;
 }
+
 .card {
   border-radius: 0;
 }
