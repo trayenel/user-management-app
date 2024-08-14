@@ -30,139 +30,141 @@
   </head>
 
   <body>
-    <div
-      class="modal fade"
-      id="exampleModal"
-      tabindex="-1"
-      aria-labelledby="createUserModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="createUserModal">Add new user</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form id="form" name="userForm" class="row">
-              <div class="mb-3">
-                <label for="firstname" class="col-form-label">First Name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="firstname"
-                  name="first_name"
-                />
-              </div>
+      <div
+        class="modal fade"
+        id="createUserModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="createUserModalLabel">Add new user</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="form" name="userForm" class="row">
+                <div class="mb-3">
+                  <label for="firstname" class="col-form-label"
+                    >First Name</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="firstname"
+                    name="first_name"
+                  />
+                </div>
 
-              <div class="mb-3">
-                <label for="lastname" class="form-label">Last Name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="lastname"
-                  name="last_name"
-                />
-              </div>
+                <div class="mb-3">
+                  <label for="lastname" class="form-label">Last Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="lastname"
+                    name="last_name"
+                  />
+                </div>
 
-              <div class="mb-3">
-                <label for="email" class="form-label">Email address</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="email"
-                  name="email"
-                />
-              </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email address</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="email"
+                    name="email"
+                  />
+                </div>
 
-              <div class="mb-3">
-                <label for="Age" class="form-label">Age</label>
-                <input type="text" class="form-control" id="Age" name="age" />
-              </div>
+                <div class="mb-3">
+                  <label for="Age" class="form-label">Age</label>
+                  <input type="text" class="form-control" id="Age" name="age" />
+                </div>
 
-              <div class="mb-3">
-                <label for="Gender" class="form-label">Gender</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="Gender"
-                  name="gender"
-                />
-              </div>
+                <div class="mb-3">
+                  <label for="Gender" class="form-label">Gender</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="Gender"
+                    name="gender"
+                  />
+                </div>
 
-              <div class="mb-3">
-                <label for="Phone" class="form-label">Phone</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="Phone"
-                  name="phone"
-                />
-              </div>
+                <div class="mb-3">
+                  <label for="Phone" class="form-label">Phone</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="Phone"
+                    name="phone"
+                  />
+                </div>
 
-              <div class="mb-3">
-                <label for="Username" class="form-label">Username</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="Username"
-                  name="username"
-                />
-              </div>
+                <div class="mb-3">
+                  <label for="Username" class="form-label">Username</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="Username"
+                    name="username"
+                  />
+                </div>
 
-              <div class="mb-3">
-                <label for="BirthDate" class="form-label">Birth Date</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="BirthDate"
-                  name="birthdate"
-                />
-              </div>
+                <div class="mb-3">
+                  <label for="BirthDate" class="form-label">Birth Date</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="BirthDate"
+                    name="birthdate"
+                  />
+                </div>
 
-              <div class="mb-3">
-                <label for="Height" class="form-label">Height</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="Height"
-                  name="height"
-                />
-              </div>
+                <div class="mb-3">
+                  <label for="Height" class="form-label">Height</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="Height"
+                    name="height"
+                  />
+                </div>
 
-              <div class="mb-3">
-                <label for="Weight" class="form-label">Weight</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="Weight"
-                  name="weight"
-                />
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary modal-close"
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button type="submit" class="btn btn-primary modal-save">
-                  Save
-                </button>
-              </div>
-            </form>
+                <div class="mb-3">
+                  <label for="Weight" class="form-label">Weight</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="Weight"
+                    name="weight"
+                  />
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary modal-close"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button type="submit" class="btn btn-primary modal-save">
+                    Save
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <header class="container mt-3">
+    <header class="container mt-3 overflow-x-hidden">
       <section class="d-flex align-items-center justify-content-between">
         <img src="./assets/react.svg" alt="" />
         <button type="button" class="btn btn-outline-primary">Log out</button>

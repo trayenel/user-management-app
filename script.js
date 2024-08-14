@@ -44,15 +44,39 @@ function renderTable() {
   table.append(tableBody);
 }
 
+function renderCard() {
+ $container.html(`
+    <div class="row text-nowrap custom-grid"></div>`);
+
+  const frag = new DocumentFragment();
+
+  users.forEach((user) => {
+    const cardElement = $(`<div class='col-xxl-3 col-lg-6 col-sm-12'>
+      <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">${user.first_name} ${user.last_name}</h5>
+        <p class="card-text">${user.email}</p>
+        <a href="#" class="btn btn-primary">Show info</a>
+      </div>
+    </div>`)
+
+    frag.append(cardElement.get(0));
+  });
+
+  $('.custom-grid').append(frag);
+}
+
 renderTable();
 
 $(".user-control").on("click", "img, button", (e) => {
   e.preventDefault();
   if ($(e.target).is(".table-view-btn")) {
+    renderTable()
     return;
   }
 
   if ($(e.target).is(".card-view-btn")) {
+    renderCard()
     return;
   }
 
