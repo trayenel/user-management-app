@@ -47,7 +47,7 @@ function renderTable() {
 renderTable();
 
 $(".user-control").on("click", "img, button", (e) => {
-  e.preventDefault()
+  e.preventDefault();
   if ($(e.target).is(".table-view-btn")) {
     return;
   }
@@ -61,21 +61,17 @@ $(".user-control").on("click", "img, button", (e) => {
     return;
   }
 
-  if ($(e.target).hasClass(".modal-save")) {
-    console.log('aaa')
-
+  if ($(e.target).is(".modal-save")) {
     const form = $("#form").get(0);
     const submitter = $(".modal-save").get(0);
 
     const formData = new FormData(form, submitter);
 
-      if (users.find((user) => user.email === formData.get("email"))) {
-
-        e.preventDefault();
-        console.log("duplicate email");
-        return;
-      }
-
+    if (users.find((user) => user.email === formData.get("email"))) {
+      e.preventDefault();
+      console.log("duplicate email");
+      return;
+    }
 
     const userId = users.reduce((acc, curr) => {
       return acc > curr.id ? acc : curr.id;
@@ -86,7 +82,6 @@ $(".user-control").on("click", "img, button", (e) => {
     formData.forEach((value, key) => {
       newUser[key] = value;
     });
-
 
     users.push(newUser);
 

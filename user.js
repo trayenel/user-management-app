@@ -14,6 +14,7 @@ const paramUserId = getQueryParam("userId");
 const usrIdx = users.findIndex((user) => user.id === Number(paramUserId));
 const user = users[usrIdx];
 
+//Get posts from DummyJson api
 if (!user.posts) {
   const posts = await getData(`https://dummyjson.com/posts/user/${user.id}`);
   user.posts = [];
@@ -21,27 +22,9 @@ if (!user.posts) {
   saveStorage("users", users);
 }
 
-//Get courses information including courses with multiple users.
-function renderCourses(container) {
-  const relevantCourses = courses.filter((course) => {
-    if (Array.isArray(course.userId)) {
-      return course.userId.includes(Number(paramUserId));
-    }
-    return course.userId === Number(paramUserId);
-  });
-
-  relevantCourses.forEach((course) => {
-    let span = $(`<li class="list-group-item">
-      <a class="link-primary link-opacity-75-hover link-underline-opacity-0" href="course.html?courseId=${course.id}">${course.title}</a>
-      </li>`);
-
-    container.append(span);
-  });
-}
-
-//Get posts from DummyJson api
+//Create post with DUMMYJson then cache it
 async function createPost(body, title) {
-  const newPosts = await fetch("https://dummyjson.com/posts/add", {
+  const newPost = await fetch("https://dummyjson.com/posts/add", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -52,8 +35,12 @@ async function createPost(body, title) {
     }),
   }).then((res) => res.json());
 
-  user.posts.push(newPosts);
+  newPost.views = 0;
+
+  user.posts.push(newPost);
+
   saveStorage("users", users);
+
 }
 
 //Dynamically render user details on page
@@ -64,7 +51,7 @@ function renderUserDetails() {
     let defaultPicLink = "./assets/silhouette-profile-pic-1.png";
 
     userContainer.html(`
- <div class="card d-flex flex-row w-100 shadow h-100" style="width: 18rem;">
+ <div class="card d-flex flex-md-row w-100 shadow h-100" style="width: 18rem;">
   <div class="d-flex flex-column align-items-center card-body">
  
  <label for="avatar">
@@ -83,67 +70,67 @@ function renderUserDetails() {
   </div>
 
   <div class="card-body">
-    <form class="form w-100 mt-3 h-100 d-flex flex-column gap-3">
+    <form class="form user-form w-100 mt-3 h-100 d-flex flex-column gap-3">
       <div class="form-group row">
         <label for="name" class="col-xl-2 col-form-label col-form-label-sm">Name</label>
         <div class="col-xl-10">
-          <input type="text" class="form-control" id="name" value="${user.first_name} ${user.last_name}" />
+          <input type="text" class="form-control user-field" id="name" value="${user.first_name} ${user.last_name}" />
         </div>
       </div>
 
       <div class="form-group row">
         <label for="email" class="col-xl-2 col-form-label col-form-label-sm">Email</label>
         <div class="col-xl-10">
-          <input type="email" class="form-control" id="email" name="email" value="${user.email}" />
+          <input type="email" class="form-control user-field" id="email" name="email" value="${user.email}" />
         </div>
       </div>
 
       <div class="form-group row">
         <label for="Age" class="col-xl-2 col-form-label col-form-label-sm">Age</label>
         <div class="col-xl-10">
-          <input type="text" class="form-control" id="Age" name="age" value="${user.age}" />
+          <input type="text" class="form-control user-field" id="Age" name="age" value="${user.age}" />
         </div>
       </div>
 
       <div class="form-group row">
         <label for="Gender" class="col-xl-2 col-form-label col-form-label-sm">Gender</label>
         <div class="col-xl-10">
-          <input type="text" class="form-control" id="Gender" name="gender" value="${user.gender}" />
+          <input type="text" class="form-control user-field" id="Gender" name="gender" value="${user.gender}" />
         </div>
       </div>
 
       <div class="form-group row">
         <label for="Phone" class="col-xl-2 col-form-label col-form-label-sm">Phone</label>
         <div class="col-xl-10">
-          <input type="text" class="form-control" id="Phone" name="phone" value="${user.phone}" />
+          <input type="text" class="form-control user-field" id="Phone" name="phone" value="${user.phone}" />
         </div>
       </div>
 
       <div class="form-group row">
         <label for="Username" class="col-xl-2 col-form-label col-form-label-sm">Username</label>
         <div class="col-xl-10">
-          <input type="text" class="form-control" id="Username" name="username" value="${user.username}" />
+          <input type="text" class="form-control user-field" id="Username" name="username" value="${user.username}" />
         </div>
       </div>
 
       <div class="form-group row">
         <label for="BirthDate" class="col-xl-2 col-form-label col-form-label-sm">Birth Date</label>
         <div class="col-xl-10">
-          <input type="text" class="form-control" id="BirthDate" name="birthdate" value="${user.birthdate}" />
+          <input type="text" class="form-control user-field" id="BirthDate" name="birthdate" value="${user.birthdate}" />
         </div>
       </div>
 
       <div class="form-group row">
         <label for="Height" class="col-xl-2 col-form-label col-form-label-sm">Height</label>
         <div class="col-xl-10">
-          <input type="text" class="form-control" id="Height" name="height" value="${user.height}" />
+          <input type="text" class="form-control user-field" id="Height" name="height" value="${user.height}" />
         </div>
       </div>
 
       <div class="form-group row">
         <label for="Weight" class="col-xl-2 col-form-label col-form-label-sm">Weight</label>
         <div class="col-xl-10">
-          <input type="text" class="form-control" id="Weight" name="weight" value="${user.weight}" />
+          <input type="text" class="form-control user-field" id="Weight" name="weight" value="${user.weight}" />
         </div>
       </div>
       
@@ -151,35 +138,35 @@ function renderUserDetails() {
       <div class="form-group row">
         <label for="Education" class="col-xl-2 col-form-label col-form-label-sm">Education</label>
         <div class="col-xl-10">
-          <input type="text" class="form-control" id="Education" name="education" value="${user.education}" />
+          <input type="text" class="form-control user-field" id="Education" name="education" value="${user.education}" />
         </div>
       </div>
 
       <div class="form-group row">
         <label for="company-name" class="col-xl-2 col-form-label col-form-label-sm">Company</label>
         <div class="col-xl-10">
-          <input type="text" class="form-control" id="company-name" name="cname" value="${user.company.name}" />
+          <input type="text" class="form-control user-field" id="company-name" name="cname" value="${user.company.name}" />
         </div>
       </div>
 
       <div class="form-group row">
         <label for="position" class="col-xl-2 col-form-label col-form-label-sm">Position</label>
         <div class="col-xl-10">
-          <input type="text" class="form-control" id="position" name="cposition" value="${user.company.position}" />
+          <input type="text" class="form-control user-field" id="position" name="cposition" value="${user.company.position}" />
         </div>
       </div>
 
       <div class="form-group row">
         <label for="salary" class="col-xl-2 col-form-label col-form-label-sm">Salary</label>
         <div class="col-xl-10">
-          <input type="text" class="form-control" id="salary" name="csalary" value="${user.company.salary}" />
+          <input type="text" class="form-control user-field" id="salary" name="csalary" value="${user.company.salary}" />
         </div>
       </div>
       
        <div class="form-group row">
         <label for="startdate" class="col-xl-2 col-form-label col-form-label-sm">Start date</label>
         <div class="col-xl-10">
-          <input type="text" class="form-control" id="startdate" name="cstart_date" value="${user.company.start_date}" />
+          <input type="text" class="form-control user-field" id="startdate" name="cstart_date" value="${user.company.start_date}" />
         </div>
       </div>
 
@@ -195,9 +182,10 @@ function renderUserDetails() {
   `);
 
     renderCourses($(".courses-list"));
-    $("input").attr("disabled", true);
 
-    $(".form").on("click", "button", (e) => {
+    $(".user-field").attr("disabled", true);
+
+    $(".user-form").on("click", "button", (e) => {
       e.preventDefault();
       let editBtn = $(".btn-edit");
       let cancelBtn = $(".btn-cancel");
@@ -206,7 +194,7 @@ function renderUserDetails() {
         $(e.target).hasClass("btn-save") &&
         $(e.target).hasClass("btn-edit")
       ) {
-        const form = $(".form").get(0);
+        const form = $(".user-form").get(0);
 
         const formData = new FormData(form);
 
@@ -227,10 +215,10 @@ function renderUserDetails() {
 
         editBtn.html("Edit");
         editBtn.removeClass("btn-save");
-        $("input").attr("disabled", true);
+        $(".user").attr("disabled", true);
         cancelBtn.attr("disabled", true);
 
-        window.location.href = `./user.html?userId=${paramUserId}`;
+        location.reload()
         return;
       }
 
@@ -253,18 +241,57 @@ function renderUserDetails() {
   }
 }
 
-renderUserDetails();
+function renderCourses(container) {
+  const relevantCourses = courses.filter((course) => {
+    if (Array.isArray(course.userId)) {
+      return course.userId.includes(Number(paramUserId));
+    }
+    return course.userId === Number(paramUserId);
+  });
+
+  relevantCourses.forEach((course) => {
+    let span = $(`<li class="list-group-item">
+      <a class="link-primary link-opacity-75-hover link-underline-opacity-0" href="course.html?courseId=${course.id}">${course.title}</a>
+      </li>`);
+
+    container.append(span);
+  });
+}
 
 function renderPosts() {
-  //Add table element to container.
+  //Create posts elements
+  let posts = $('<section class="posts"></section>');
+
+  let options = $(`
+       <div class="d-flex mt-5 gap-3 post-options">
+                <button
+                        type="button"
+                        class="btn btn-outline-primary create-post"
+                        data-bs-toggle="modal"
+                        data-bs-target="#createPostModal"
+                >
+                  Create post
+                </button>
+                  <button
+                        type="button"
+                        class="btn btn-outline-primary delete-post"
+                        data-bs-toggle="modal"
+                        data-bs-target="#deletePostModal"
+                disabled
+                >
+                  Delete
+                </button>
+          </div>
+  `);
+
   let table = $(`
-    <table class="table shadow mt-2 border">
+    <table class="table shadow mt-3 border">
         <thead class="visible@l">
         <tr>
             <td>
   <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminateDisabled">
-  <label class="form-check-label" for="flexCheckIndeterminateDisabled">
+  <input class="form-check-input principal-checkbox" type="checkbox" value="" id="principal-checkbox">
+  <label class="form-check-label" for="principal-checkbox">
   </label>
 </div>
 
@@ -284,13 +311,11 @@ function renderPosts() {
 
   //Create rows for each user
   user.posts.forEach((post) => {
-    console.log(post);
     const tableRow = $(`
             <tr>
                <td class="d-none d-sm-table-cell">
                    <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-  <label class="form-check-label" for="flexCheckDefault">
+  <input class="form-check-input secondary-checkbox" type="checkbox" name="${post.id}" value="${post.id}">
   </label>
 </div>
                 </td>
@@ -307,7 +332,84 @@ function renderPosts() {
 
   table.append(tableBody);
 
-  userContainer.append(table);
+  posts.append(options);
+
+  posts.append(table);
+
+  userContainer.append(posts);
 }
 
+renderUserDetails();
+
 renderPosts();
+
+$(".post-form").on("click", "button", async (e) => {
+  e.preventDefault();
+
+  if ($(e.target).is(".modal-save")) {
+    let form = $(".post-form").get(0);
+    let submitter = $(".modal-save").get(0);
+
+    const formData = new FormData(form, submitter);
+
+    if (user.posts.find((post) => post.title === formData.get("title").trim()))
+      return;
+
+    const newPost = await createPost(
+      formData.get("body").trim(),
+      formData.get("title").trim(),
+    );
+
+    location.reload()
+  }
+});
+
+$(".posts").on("click", "button, input", (e) => {
+  let principalCheckbox = $(".principal-checkbox");
+  let secondaryCheckboxes = $(".secondary-checkbox");
+
+  if ($(e.target).is(".principal-checkbox")) {
+    let isChecked = principalCheckbox.is(":checked");
+
+    secondaryCheckboxes.prop("checked", isChecked);
+  }
+
+  let checkedCount = secondaryCheckboxes.filter(":checked").length;
+  let totalCount = secondaryCheckboxes.length;
+
+  if (totalCount === 0) {
+    principalCheckbox.attr("disabled", true);
+  } else {
+    principalCheckbox.attr("disabled", false);
+  }
+
+  if (checkedCount > 0) {
+    $(".delete-post").prop("disabled", false);
+  } else {
+    $(".delete-post").prop("disabled", true);
+  }
+
+  if (checkedCount > 0 && checkedCount < totalCount) {
+    principalCheckbox.prop("indeterminate", true);
+  } else {
+    principalCheckbox.prop("indeterminate", false);
+    principalCheckbox.prop("checked", checkedCount === totalCount);
+  }
+});
+
+$(".modal").on("click", "button", (e) => {
+  e.preventDefault();
+  if ($(e.target).is(".modal-delete")) {
+
+    const checkedBoxes = $(".secondary-checkbox:checked").map(function() {
+      return Number($(this).val());
+    }).get();
+
+    user.posts = user.posts.filter(post => !checkedBoxes.includes(post.id))
+
+    saveStorage("users", users);
+
+  location.reload()
+  }
+});
+
