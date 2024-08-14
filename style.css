@@ -5,6 +5,10 @@
   justify-self: center;
 }
 
+.small {
+  height: 50px;
+  border-radius: 25px;
+}
 .card {
   border-radius: 0;
 }
@@ -26,18 +30,12 @@
   height: 20px;
   width: 20px;
 }
-
-.table-order-btn,
-.table-view-btn,
-.card-view-btn {
-  min-height: 20px;
-  min-width: 20px;
-  height: 20px;
-  width: 20px;
-}
-
 .sortDesc {
   transform: rotate(180deg);
+}
+.active-view {
+  filter: invert(38%) sepia(60%) saturate(508%) hue-rotate(100deg)
+    brightness(97%) contrast(96%);
 }
 
 @media (max-width: 750px) {

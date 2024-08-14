@@ -1,4 +1,4 @@
-import { saveStorage, users } from "./utils.js";
+import { defaultPicLink, saveStorage, users } from "./utils.js";
 
 //Get DOM container
 const $container = $(".user-container");
@@ -22,6 +22,7 @@ function renderTable() {
             <td>
                 #
             </td>
+            <td></td>
             <td>Name</td>
             <td>Email Address</td>
             <td></td>
@@ -42,6 +43,7 @@ function renderTable() {
     const tableRow = $(`
             <tr>
                 <th class="d-none d-sm-table-cell">${i + 1}</th>
+                <td>   <img src="${user.picture ? user.picture : defaultPicLink}" class="user-profile-pic small visible@l" alt="..."></td>
                 <td>${user.first_name} ${user.last_name}</td>
                 <td>${user.email}</td>
                 <td class="d-none d-sm-table-cell">
@@ -70,6 +72,7 @@ function renderCard() {
   sortedUsers.forEach((user) => {
     const cardElement = $(`<div class='col-xxl-3 col-lg-6 col-sm-12 mt-2'>
       <div class="card">
+    <img src="${user.picture ? user.picture : defaultPicLink}" class="card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title">${user.first_name} ${user.last_name}</h5>
         <p class="card-text">${user.email}</p>
@@ -89,16 +92,25 @@ $(".navbar").on("click", "img, button", (e) => {
   e.preventDefault();
   if ($(e.target).is(".table-view-btn")) {
     renderTable();
+    $(".card-view-btn").removeClass("active-view");
+    $(".table-view-btn").addClass("active-view");
     return;
   }
 
   if ($(e.target).is(".card-view-btn")) {
     renderCard();
+    $(".table-view-btn").removeClass("active-view");
+    $(".card-view-btn").addClass("active-view");
     return;
   }
 
   if ($(e.target).is(".table-order-btn") || $(e.target).is(".sort-btn")) {
     $(".table-order-btn").toggleClass("sortDesc");
+
+    let sortBtnHtml = $(".table-order-btn").hasClass("sortDesc")
+      ? `Sort asc.`
+      : `Sort desc.`;
+    $(".sort-btn").html(sortBtnHtml);
   }
 });
 

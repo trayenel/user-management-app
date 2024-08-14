@@ -1,10 +1,4 @@
-import {
-  courses,
-  getData,
-  getQueryParam,
-  saveStorage,
-  users,
-} from "./utils.js";
+import {courses, defaultPicLink, getData, getQueryParam, saveStorage, users,} from "./utils.js";
 
 //Get DOM container
 const userContainer = $(".user-container");
@@ -47,8 +41,6 @@ function renderUserDetails() {
   if (!user) {
     userContainer.html(`Error 404 user not found`);
   } else {
-    let defaultPicLink = "./assets/silhouette-profile-pic-1.png";
-
     userContainer.html(`
  <div class="card d-flex flex-md-row w-100 shadow h-100" style="width: 18rem;">
   <div class="d-flex flex-column align-items-center card-body">
@@ -56,7 +48,7 @@ function renderUserDetails() {
  <label for="avatar">
     <img src="${user.picture ? user.picture : defaultPicLink}" class="user-profile-pic" alt="...">
     </label> 
-<input type="file" id="avatar" accept="image/png, image/jpeg" class="d-none"/> 
+<input type="file" id="avatar" accept="image/png, image/jpeg" class="d-none profile-pic-chooser"/> 
 
     <h5 class="card-title">${user.first_name} ${user.last_name}</h5>
     <p class="card-text">${user.email}</p>
@@ -184,59 +176,20 @@ function renderUserDetails() {
 
     $(".user-field").attr("disabled", true);
 
-    $(".user-form").on("click", "button", (e) => {
-      e.preventDefault();
-      let editBtn = $(".btn-edit");
-      let cancelBtn = $(".btn-cancel");
+    $("#avatar").on("change", async (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
 
-      if (
-        $(e.target).hasClass("btn-save") &&
-        $(e.target).hasClass("btn-edit")
-      ) {
-        const form = $(".user-form").get(0);
+       reader.readAsDataURL(file)
 
-        const formData = new FormData(form);
+        reader.addEventListener('load', () => {
+          user.picture = reader.result
 
-        let newUser = { ...user };
-
-        formData.forEach((value, key) => {
-          if (key[0] === "c") {
-            let companyDetail = key.slice(1, key.length);
-            newUser.company[companyDetail] = value.trim();
-          } else {
-            newUser[key] = value.trim();
-          }
-        });
-
-        users[usrIdx] = newUser;
-
-        saveStorage("users", users);
-
-        editBtn.html("Edit");
-        editBtn.removeClass("btn-save");
-        $(".user").attr("disabled", true);
-        cancelBtn.attr("disabled", true);
-
-        location.reload();
-        return;
+          saveStorage('users', users)
+        })
       }
-
-      if ($(e.target).is(".btn-cancel")) {
-        editBtn.html("Edit");
-        editBtn.removeClass("btn-save");
-        $("input").attr("disabled", true);
-        cancelBtn.attr("disabled", true);
-        return;
-      }
-
-      if ($(e.target).is(".btn-edit")) {
-        e.preventDefault();
-        editBtn.html("Save");
-        cancelBtn.attr("disabled", false);
-        editBtn.addClass("btn-save");
-        $("input").attr("disabled", false);
-      }
-    });
+    })
   }
 }
 
@@ -342,6 +295,57 @@ renderUserDetails();
 
 renderPosts();
 
+userContainer.on("click", "button", (e) => {
+  let editBtn = $(".btn-edit");
+  let cancelBtn = $(".btn-cancel");
+
+  if ($(e.target).hasClass("btn-save") && $(e.target).hasClass("btn-edit")) {
+    e.preventDefault()
+    const form = $(".user-form").get(0);
+
+    const formData = new FormData(form);
+
+    let newUser = { ...user };
+
+    formData.forEach((value, key) => {
+      if (key[0] === "c") {
+        let companyDetail = key.slice(1, key.length);
+        newUser.company[companyDetail] = value.trim();
+      } else {
+        newUser[key] = value.trim();
+      }
+    });
+
+    users[usrIdx] = newUser;
+
+    saveStorage("users", users);
+
+    editBtn.html("Edit");
+    editBtn.removeClass("btn-save");
+    $(".user").attr("disabled", true);
+    cancelBtn.attr("disabled", true);
+
+    location.reload();
+    return;
+  }
+
+  if ($(e.target).is(".btn-cancel")) {
+    editBtn.html("Edit");
+    editBtn.removeClass("btn-save");
+    $("input").attr("disabled", true);
+    cancelBtn.attr("disabled", true);
+    return;
+  }
+
+  if ($(e.target).is(".btn-edit")) {
+    e.preventDefault();
+    editBtn.html("Save");
+    cancelBtn.attr("disabled", false);
+    editBtn.addClass("btn-save");
+    $("input").attr("disabled", false);
+  }
+});
+
 $(".post-form").on("click", "button", async (e) => {
   e.preventDefault();
 
@@ -367,9 +371,13 @@ $(".posts").on("click", "button, input", (e) => {
   let principalCheckbox = $(".principal-checkbox");
   let secondaryCheckboxes = $(".secondary-checkbox");
 
-  if ($(e.target).is(".principal-checkbox")) {
-    let isChecked = principalCheckbox.is(":checked");
+  if ($(e.target).is(".create-post")) return;
 
+  if (
+    $(e.target).is(".principal-checkbox") &&
+    !principalCheckbox.prop("disabled")
+  ) {
+    let isChecked = principalCheckbox.is(":checked");
     secondaryCheckboxes.prop("checked", isChecked);
   }
 

@@ -36,3 +36,5 @@ if (!fetchStorage("users")) {
 export const users = fetchStorage("users");
 
 export const courses = await getData("./assets/courses.json");
+
+export const defaultPicLink = "./assets/silhouette-profile-pic-1.png";
