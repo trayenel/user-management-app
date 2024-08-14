@@ -54,7 +54,7 @@
               name="userForm"
               class="row g-3 align-content-end justify-content-center"
             >
-              <div class="col-sm-6">
+              <div class="col-md-6">
                 <label for="firstname" class="col-form-label">First Name</label>
                 <input
                   type="text"
@@ -64,7 +64,7 @@
                 />
               </div>
 
-              <div class="col-sm-6">
+              <div class="col-md-6">
                 <label for="lastname" class="form-label">Last Name</label>
                 <input
                   type="text"
@@ -74,7 +74,7 @@
                 />
               </div>
 
-              <div class="col-sm-6">
+              <div class="col-md-6">
                 <label for="email" class="form-label">Email address</label>
                 <input
                   type="text"
@@ -84,12 +84,12 @@
                 />
               </div>
 
-              <div class="col-sm-6">
+              <div class="col-md-6">
                 <label for="Age" class="form-label">Age</label>
                 <input type="text" class="form-control" id="Age" name="age" />
               </div>
 
-              <div class="col-sm-6">
+              <div class="col-md-6">
                 <label for="Gender" class="form-label">Gender</label>
                 <input
                   type="text"
@@ -99,7 +99,7 @@
                 />
               </div>
 
-              <div class="col-sm-6">
+              <div class="col-md-6">
                 <label for="Phone" class="form-label">Phone</label>
                 <input
                   type="text"
@@ -109,7 +109,7 @@
                 />
               </div>
 
-              <div class="col-sm-6">
+              <div class="col-md-6">
                 <label for="Username" class="form-label">Username</label>
                 <input
                   type="text"
@@ -119,7 +119,7 @@
                 />
               </div>
 
-              <div class="col-sm-6">
+              <div class="col-md-6">
                 <label for="BirthDate" class="form-label">Birth Date</label>
                 <input
                   type="text"
@@ -129,7 +129,7 @@
                 />
               </div>
 
-              <div class="col-sm-6">
+              <div class="col-md-6">
                 <label for="Height" class="form-label">Height</label>
                 <input
                   type="text"
@@ -139,7 +139,7 @@
                 />
               </div>
 
-              <div class="col-sm-6">
+              <div class="col-md-6">
                 <label for="Weight" class="form-label">Weight</label>
                 <input
                   type="text"
@@ -171,11 +171,12 @@
         <img src="./assets/react.svg" alt="" />
         <button type="button" class="btn btn-outline-primary">Log out</button>
       </section>
-      <section class="user-control mt-5">
-        <div class="d-flex mt-3 justify-content-around table-options">
-          <div class="d-flex w-75 align-items-baseline">
-            <form class="w-100">
-              <div class="col-sm-12">
+
+      <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid align-items-end">
+          <div class="d-flex w-100 justify-content-between">
+            <div class="d-flex w-75">
+              <form class="form w-100">
                 <label
                   for="searchByName"
                   class="form-label"
@@ -188,50 +189,70 @@
                   placeholder="Quick search"
                   aria-describedby="emailHelp"
                 />
-              </div>
-            </form>
-            <img
-              src="./assets/ArrowUp.svg"
-              class="table-order-btn align-self-center"
-              alt="Arrow pointing up or down based on user click"
-            />
-          </div>
+              </form>
+              <img
+                src="./assets/ArrowUp.svg"
+                class="table-order-btn align-self-center d-lg-inline d-none"
+                alt="Arrow pointing up or down based on user click"
+              />
+            </div>
 
-          <div class="d-flex gap-3 align-items-center text-nowrap">
             <button
+              class="navbar-toggler"
               type="button"
-              class="btn btn-primary add-use"
-              data-bs-toggle="modal"
-              data-bs-target="#createUserModal"
-            >
-              Add user
-            </button>
-            <button
-              class="btn btn-primary dropdown-toggle"
-              type="button"
-              id="dropdownMenuButton1"
-              data-bs-toggle="dropdown"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
               aria-expanded="false"
+              aria-label="Toggle navigation"
             >
-              Filter
+              <span class="navbar-toggler-icon"></span>
             </button>
-            <img
-              src="./assets/ListBullet.svg"
-              class="table-view-btn"
-              alt="Button that displays a stylized table"
-            />
+          </div>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul
+              class="navbar-nav me-auto mb-2 mb-lg-0 text-nowrap mt-3 d-flex gap-2 align-items-lg-center"
+            >
+              <li class="nav-item">
+                <button
+                  type="button"
+                  class="btn btn-primary add-user"
+                  data-bs-toggle="modal"
+                  data-bs-target="#createUserModal"
+                >
+                  Add user
+                </button>
+              </li>
 
-            <img
-              src="./assets/ViewColumns.svg"
-              class="card-view-btn"
-              alt="Button that displays a stylized table"
-            />
+              <li class="nav-item">
+                <button
+                  type="button"
+                  class="btn btn-primary sort-btn d-lg-none d-inline"
+                >
+                  Sort
+                </button>
+              </li>
+              <li>
+                <img
+                  src="./assets/ListBullet.svg"
+                  class="table-view-btn d-lg-inline d-none"
+                  alt="Button that displays a stylized table"
+                />
+              </li>
+              <li>
+                <img
+                  src="./assets/ViewColumns.svg"
+                  class="card-view-btn d-lg-inline d-none"
+                  alt="Button that displays a stylized table"
+                />
+              </li>
+            </ul>
           </div>
         </div>
-      </section>
+      </nav>
+
       <section class="user-container"></section>
     </header>
-
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

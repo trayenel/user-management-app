@@ -85,7 +85,7 @@ function renderCard() {
 
 renderTable();
 
-$(".user-control").on("click", "img, button", (e) => {
+$(".navbar").on("click", "img, button", (e) => {
   e.preventDefault();
   if ($(e.target).is(".table-view-btn")) {
     renderTable();
@@ -97,7 +97,7 @@ $(".user-control").on("click", "img, button", (e) => {
     return;
   }
 
-  if ($(e.target).is(".table-order-btn")) {
+  if ($(e.target).is(".table-order-btn") || $(e.target).is(".sort-btn")) {
     $(".table-order-btn").toggleClass("sortDesc");
   }
 });
