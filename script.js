@@ -8,7 +8,7 @@ function renderTable() {
   //Add table element to container.
 
   $container.html(`
-    <table class="table table-striped shadow mt-5">
+    <table class="table table-striped shadow mt-1">
         <thead class="visible@l">
         <tr>
             <td>
@@ -45,3 +45,51 @@ function renderTable() {
 }
 
 renderTable();
+
+$(".user-control").on("click", "img, button", (e) => {
+  e.preventDefault()
+  if ($(e.target).is(".table-view-btn")) {
+    return;
+  }
+
+  if ($(e.target).is(".card-view-btn")) {
+    return;
+  }
+
+  if ($(e.target).is(".table-order-btn")) {
+    $(".table-order-btn").toggleClass("sortDesc");
+    return;
+  }
+
+  if ($(e.target).hasClass(".modal-save")) {
+    console.log('aaa')
+
+    const form = $("#form").get(0);
+    const submitter = $(".modal-save").get(0);
+
+    const formData = new FormData(form, submitter);
+
+      if (users.find((user) => user.email === formData.get("email"))) {
+
+        e.preventDefault();
+        console.log("duplicate email");
+        return;
+      }
+
+
+    const userId = users.reduce((acc, curr) => {
+      return acc > curr.id ? acc : curr.id;
+    }, 0);
+
+    const newUser = { id: userId + 1 };
+
+    formData.forEach((value, key) => {
+      newUser[key] = value;
+    });
+
+
+    users.push(newUser);
+
+    saveStorage("users", users);
+  }
+});

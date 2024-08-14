@@ -149,9 +149,9 @@ function renderUserDetails() {
       
       
       <div class="form-group row">
-        <label for="Weight" class="col-xl-2 col-form-label col-form-label-sm">Education</label>
+        <label for="Education" class="col-xl-2 col-form-label col-form-label-sm">Education</label>
         <div class="col-xl-10">
-          <input type="text" class="form-control" id="Weight" name="education" value="${user.education}" />
+          <input type="text" class="form-control" id="Education" name="education" value="${user.education}" />
         </div>
       </div>
 
@@ -203,17 +203,15 @@ function renderUserDetails() {
       let cancelBtn = $(".btn-cancel");
 
       if (
-        e.target.classList.contains("btn-save") &&
-        e.target.classList.contains("btn-edit")
+        $(e.target).hasClass("btn-save") &&
+        $(e.target).hasClass("btn-edit")
       ) {
-        const form = document.querySelector(".form");
+        const form = $(".form").get(0);
 
         const formData = new FormData(form);
 
         let newUser = { ...user };
 
-        console.log(newUser);
-        console.log(formData);
         formData.forEach((value, key) => {
           if (key[0] === "c") {
             let companyDetail = key.slice(1, key.length);
@@ -232,19 +230,19 @@ function renderUserDetails() {
         $("input").attr("disabled", true);
         cancelBtn.attr("disabled", true);
 
-        window.location.href = `./user.html?userId=${paramUserId}`
+        window.location.href = `./user.html?userId=${paramUserId}`;
         return;
       }
 
-      if (e.target.classList.contains("btn-cancel")) {
+      if ($(e.target).is(".btn-cancel")) {
         editBtn.html("Edit");
-        editBtn.removeClass("save-btn");
+        editBtn.removeClass("btn-save");
         $("input").attr("disabled", true);
         cancelBtn.attr("disabled", true);
         return;
       }
 
-      if (e.target.classList.contains("btn-edit")) {
+      if ($(e.target).is(".btn-edit")) {
         e.preventDefault();
         editBtn.html("Save");
         cancelBtn.attr("disabled", false);
@@ -256,3 +254,60 @@ function renderUserDetails() {
 }
 
 renderUserDetails();
+
+function renderPosts() {
+  //Add table element to container.
+  let table = $(`
+    <table class="table shadow mt-2 border">
+        <thead class="visible@l">
+        <tr>
+            <td>
+  <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminateDisabled">
+  <label class="form-check-label" for="flexCheckIndeterminateDisabled">
+  </label>
+</div>
+
+            </td>
+            <td>
+            Id
+            </td>
+            <td>Title</td>
+            <td>Views</td>
+            <td>Likes</td>
+            <td>Dislikes</td>
+        </tr>
+        </thead>
+    </table>`);
+
+  const tableBody = $("<tbody></tbody>");
+
+  //Create rows for each user
+  user.posts.forEach((post) => {
+    console.log(post);
+    const tableRow = $(`
+            <tr>
+               <td class="d-none d-sm-table-cell">
+                   <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+  <label class="form-check-label" for="flexCheckDefault">
+  </label>
+</div>
+                </td>
+                <th class="d-none d-sm-table-cell">${post.id}</th>
+                <td>${post.title}</td>
+                <td>${post.views}</td>
+                <td>${post.reactions.likes}</td>
+                <td>${post.reactions.dislikes}</td>
+            </tr>
+        `);
+
+    tableBody.append(tableRow);
+  });
+
+  table.append(tableBody);
+
+  userContainer.append(table);
+}
+
+renderPosts();
