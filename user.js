@@ -49,7 +49,7 @@ function renderUserDetails() {
     userContainer.html(`Error 404 user not found`);
   } else {
     userContainer.html(`
- <div class="card d-flex flex-md-row w-100 shadow h-100" style="width: 18rem;">
+ <div class="card d-flex flex-md-row w-100 shadow" style="width: 18rem;">
   <div class="d-flex flex-column align-items-center card-body">
  
  <label for="avatar">
@@ -227,7 +227,7 @@ function renderPosts() {
   let posts = $('<section class="posts"></section>');
 
   let options = $(`
-       <div class="d-flex mt-5 gap-3 post-options">
+       <div class="d-flex mt-3 gap-3 post-options">
                 <button
                         type="button"
                         class="btn btn-outline-primary create-post"
@@ -249,7 +249,7 @@ function renderPosts() {
   `);
 
   let table = $(`
-    <table class="table shadow mt-3 border">
+    <table class="table shadow mt-1 border">
         <thead class="visible@l">
         <tr>
             <td>
