@@ -77,4 +77,3 @@ $(".post-form").on("click", "button", async (e) => {
     location.reload();
   }
 });
-console.log(User.users)

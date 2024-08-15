@@ -69,7 +69,7 @@
     brightness(97%) contrast(96%);
 }
 
-@media (max-width: 750px) {
+@media (max-width: 767px) {
   .visible\@l {
     display: none;
   }

@@ -53,13 +53,13 @@ class Users {
     if (this.view === view) return;
     this.view = view;
     this.render();
-    $("#searchBy").val("");
+    if ($("#searchBy").val() !== "") this.search();
   }
 
   renderTable() {
     //Add table element to container.
     this.container.html(`
-    <table class="table table-striped shadow mt-2">
+    <table class="table table-borderless table-striped shadow mt-2">
         <thead class="visible@l">
         <tr>
             <td>
@@ -85,12 +85,12 @@ class Users {
     //Create rows for each user
     sortedUsers.forEach((user, i) => {
       const tableRow = $(`
-            <tr class="secondary-table-row">
-                <th class="d-none d-sm-table-cell">${i + 1}</th>
+            <tr class="secondary-table-row d-flex flex-column d-md-table-row">
+                <th class="d-none d-md-table-cell">${i + 1}</th>
                 <td>   <img src="${user.picture ? user.picture : defaultPicLink}" class="user-profile-pic small visible@l" alt="..."></td>
                 <td class="td-name">${user.first_name} ${user.last_name}</td>
                 <td class="td-email">${user.email}</td>
-                <td class="d-none d-sm-table-cell">
+                <td class="td=button">
                     <a class="btn btn-primary btn-sm text-nowrap" href="user.html?userId=${user.id}" role="button">Show info</a>
                 </td>
             </tr>
@@ -155,26 +155,26 @@ class Users {
 
         if (rowText.includes(searchTerm)) {
           $(this).show();
+          $(this).addClass("d-flex");
+          $(this).addClass("d-md-table-row");
         } else {
+          $(this).removeClass("d-flex");
+          $(this).removeClass("d-md-table-row");
           $(this).hide();
         }
       });
     } else {
-      $(".card").each(function () {
+      $(".card-body").each(function () {
         const searchByEmail = $("#checkbox-mail:checked").get(0)
           ? ".card-text"
           : ".card-title";
 
-        const rowText = $(this)
-          .children(".card-body")
-          .children(searchByEmail)
-          .text()
-          .toLowerCase();
+        const rowText = $(this).children(searchByEmail).text().toLowerCase();
 
         if (rowText.includes(searchTerm)) {
-          $(this).show();
+          $(this).closest(".col-xxl-3").show();
         } else {
-          $(this).hide();
+          $(this).closest(".col-xxl-3").hide();
         }
       });
     }
@@ -361,13 +361,11 @@ class Users {
             if (key[0] === "c") {
               let companyDetail = key.slice(1, key.length);
               newUser.company[companyDetail] = value.trim();
-            }
-            else if (key[0] === 'f') {
-              let fullname = value.split(" ")
-             newUser.first_name = fullname[0]
-              newUser.last_name = fullname[1] ? fullname[1] : ''
-            }
-            else {
+            } else if (key[0] === "f") {
+              let fullname = value.split(" ");
+              newUser.first_name = fullname[0];
+              newUser.last_name = fullname[1] ? fullname[1] : "";
+            } else {
               newUser[key] = value.trim();
             }
           });
@@ -445,6 +443,8 @@ class Users {
                 >
                   Delete
                 </button>
+            <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off" disabled>
+<label class="btn btn-outline-primary btn-check-label d-md-none" for="btn-check">Select all</label>
           </div>
   `);
 
@@ -454,7 +454,7 @@ class Users {
         <tr>
             <td>
   <div class="form-check">
-  <input class="form-check-input principal-checkbox" type="checkbox" value="" id="principal-checkbox">
+  <input class="form-check-input principal-checkbox" type="checkbox"  id="principal-checkbox" disabled>
   <label class="form-check-label" for="principal-checkbox">
   </label>
 </div>
@@ -477,7 +477,7 @@ class Users {
     await user.posts.forEach((post) => {
       const tableRow = $(`
             <tr>
-               <td class="d-none d-sm-table-cell">
+               <td>
                    <div class="form-check">
   <input class="form-check-input secondary-checkbox" type="checkbox" name="${post.id}" value="${post.id}">
   </label>
@@ -502,28 +502,31 @@ class Users {
 
     this.container.append(posts);
 
+    $(".principal-checkbox, .btn-check").prop(
+      "disabled",
+      $(".secondary-checkbox").length === 0,
+    );
+
     $(".posts").on("click", "button, input", (e) => {
       let principalCheckbox = $(".principal-checkbox");
       let secondaryCheckboxes = $(".secondary-checkbox");
+      let btnCheck = $(".btn-check");
 
       if ($(e.target).is(".create-post")) return;
 
-      if (
-        $(e.target).is(".principal-checkbox") &&
-        !principalCheckbox.prop("disabled")
-      ) {
+      if ($(e.target).is(btnCheck)) {
+        principalCheckbox.prop("checked", $(btnCheck).is(":checked"));
+        let isChecked = principalCheckbox.is(":checked");
+        secondaryCheckboxes.prop("checked", isChecked);
+      }
+
+      if ($(e.target).is(".principal-checkbox")) {
         let isChecked = principalCheckbox.is(":checked");
         secondaryCheckboxes.prop("checked", isChecked);
       }
 
       let checkedCount = secondaryCheckboxes.filter(":checked").length;
       let totalCount = secondaryCheckboxes.length;
-
-      if (totalCount === 0) {
-        principalCheckbox.attr("disabled", true);
-      } else {
-        principalCheckbox.attr("disabled", false);
-      }
 
       if (checkedCount > 0) {
         $(".delete-post").prop("disabled", false);
@@ -536,6 +539,7 @@ class Users {
       } else {
         principalCheckbox.prop("indeterminate", false);
         principalCheckbox.prop("checked", checkedCount === totalCount);
+        btnCheck.prop("checked", checkedCount === totalCount);
       }
     });
   }
