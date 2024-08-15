@@ -7,7 +7,7 @@ export function getQueryParam(param) {
   return Number(new URLSearchParams(window.location.search).get(param));
 }
 
-export const fetchStorage = function (name) {
+export function fetchStorage(name) {
   const userData = localStorage.getItem(name);
   if (!userData) {
     return false;
@@ -15,9 +15,27 @@ export const fetchStorage = function (name) {
   return JSON.parse(userData);
 };
 
-export const saveStorage = function (name, data) {
+export function saveStorage(name, data) {
   localStorage.setItem(name, JSON.stringify(data));
-};
+}
+
+export function storeLastUsers(user) {
+  if (!fetchStorage('lastThreeUsers')) {
+    let lastUsers = [user.id]
+    saveStorage('lastThreeUsers', lastUsers)
+    return
+  }
+
+  let lastUsers = fetchStorage('lastThreeUsers')
+
+  if (!lastUsers.includes(user.id)) {
+    lastUsers.push(user.id)
+    if (lastUsers.length > 3) {
+      lastUsers.shift()}
+  }
+
+  saveStorage('lastThreeUsers', lastUsers)
+}
 
 //Loading data from JSON if not in localstorage
 if (!fetchStorage("users")) {
