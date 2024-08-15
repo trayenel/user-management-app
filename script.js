@@ -1,4 +1,5 @@
 import User from "./Users.js";
+import { fetchStorage } from "./utils.js";
 
 User.render();
 
@@ -49,8 +50,8 @@ $(".navbar").on("click", "img, button", (e) => {
 $(".modal").on("click", "button", (e) => {
   e.preventDefault();
   if ($(e.target).is(".modal-save")) {
-    User.addUser();
-    location.reload();
+    let isValid = User.addUser();
+    // if (isValid) location.reload();
   }
 });
 
@@ -59,3 +60,5 @@ $("#searchBy").on("input", User.search);
 
 // Trigger search when the checkbox state changes
 $("#checkbox-mail").on("change", User.search);
+
+User.renderLastAccessedUsers(fetchStorage("lastThreeUsers"));

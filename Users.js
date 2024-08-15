@@ -1,6 +1,7 @@
 import {
   courses,
   defaultPicLink,
+  fetchStorage,
   getData,
   saveStorage,
   users,
@@ -20,13 +21,6 @@ class Users {
 
     const formData = new FormData(form, submitter);
 
-    if (
-      this.users.find((user) => user.email === formData.get("email").trim())
-    ) {
-      $(".");
-      return;
-    }
-
     const userId = this.users.reduce((acc, curr) => {
       return acc > curr.id ? acc : curr.id;
     }, 0);
@@ -34,12 +28,162 @@ class Users {
     const newUser = { id: userId + 1 };
 
     formData.forEach((value, key) => {
-      newUser[key] = value.trim();
+      let inputField = $(`input[name = "${key}"]`);
+      inputField.siblings(".text-danger, .info-text").remove();
+
+      if (!value.trim()) {
+        inputField.css({ borderColor: "#dc3545" });
+        if (!inputField.next(".info-text").length) {
+          inputField.after(
+            `<span class="text-danger info-text" style="font-size: 12px;">Field can't be empty</span>`,
+          );
+        }
+      } else {
+        inputField.css({ borderColor: "green" });
+        inputField.after(
+          `<span class="info-text" style="font-size: 12px; color: green;">Looks good!</span>`,
+        );
+        newUser[key] = value.trim();
+      }
     });
 
-    this.users.push(newUser);
+    let email =  formData.get('email').trim()
+    let existingUser = this.users.find((user) => user.email === email);
+    let mailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    let mailField = $(`input[name = "email"]`);
 
-    saveStorage("users", this.users);
+    let height = formData.get('height').trim()
+    let heightRegex = /^(?:(?:[4-9]|[1-7]\\d?)')\\s*(?:0?|(?:1[0-1]|\\d))\"?$/
+    let heightField = $(`input[name = "height"]`);
+
+    let age = formData.get('age').trim()
+    let ageField = $(`input[name = "age"]`);
+
+    let salary = formData.get('csalary').trim()
+    let salaryField = $(`input[name = "csalary"]`);
+
+    let phone = formData.get('phone').trim()
+    let phoneField =  $(`input[name = "phone"]`);
+    let phoneRegex = /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/
+
+    let startDate = formData.get('cstart_date').trim()
+    let startDateField =  $(`input[name = "cstart_date"]`);
+    let birthDate = formData.get('birthdate').trim()
+    let birthDateField =  $(`input[name = "birthdate"]`);
+    let dateRegex = /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/
+
+    if (email !== '') {
+      if (!email.match(mailRegex)) {
+
+        mailField.css({borderColor: '#dc3545'});
+        if (mailField.next('.info-text').length) {
+          mailField.next('.info-text').text('Invalid email').css({color: '#dc3545'});
+        } else {
+          mailField.after(
+              `<span class="text-danger info-text" style="font-size: 12px;">Invalid email</span>`
+          );
+        }
+      } else {
+        if (existingUser) {
+          mailField.css({borderColor: "#dc3545"});
+          if (mailField.next(".info-text").length) {
+            mailField.next(".info-text").text("Duplicate email").css({color: "#dc3545"});
+          } else {
+            mailField.after(
+                `<span class="text-danger info-text" style="font-size: 12px;">Duplicate email</span>`
+            );
+          }
+        }
+      }
+    }
+
+    if (height !== '') {
+      if (!height.match(heightRegex)) {
+        heightField.css({borderColor: '#dc3545'});
+        if (heightField.next('.info-text').length) {
+          heightField.next('.info-text').text('Invalid height').css({color: '#dc3545'});
+        } else {
+          heightField.after(
+              `<span class="text-danger info-text" style="font-size: 12px;">Invalid height</span>`
+          );
+        }
+      }
+    }
+
+    if (age !== '') {
+      if (Number.isNaN(Number(age))) {
+        ageField.css({borderColor: '#dc3545'});
+        if (ageField.next('.info-text').length) {
+          ageField.next('.info-text').text('Invalid age').css({color: '#dc3545'});
+        } else {
+          ageField.after(
+              `<span class="text-danger info-text" style="font-size: 12px;">Invalid age</span>`
+          );
+        }
+      }
+    }
+
+    if (salary !== '') {
+      if (Number.isNaN(Number(salary))) {
+        salaryField.css({borderColor: '#dc3545'});
+        if (ageField.next('.info-text').length) {
+          salaryField.next('.info-text').text('Invalid salary').css({color: '#dc3545'});
+        } else {
+          salaryField.after(
+              `<span class="text-danger info-text" style="font-size: 12px;">Invalid salary</span>`
+          );
+        }
+      }
+    }
+
+    if (phone !== '') {
+      if (!phone.match(phoneRegex)) {
+        phoneField.css({ borderColor: '#dc3545' });
+        if (phoneField.next('.info-text').length) {
+          phoneField.next('.info-text').text('Invalid phone number').css({ color: '#dc3545' });
+        } else {
+          phoneField.after(`<span class="text-danger info-text" style="font-size: 12px;">Invalid phone number</span>`);
+        }
+      }
+    }
+
+    if (startDate !== '') {
+      if (!startDate.match(dateRegex)) {
+        startDateField.css({borderColor: '#dc3545'});
+        if (startDateField.next('.info-text').length) {
+          startDateField.next('.info-text').text('Invalid date').css({color: '#dc3545'});
+        } else {
+          startDateField.after(
+              `<span class="text-danger info-text" style="font-size: 12px;">Invalid date</span>`
+          );
+        }
+      }
+    }
+
+
+    if (birthDate !== '') {
+      if (!birthDate.match(dateRegex)) {
+        birthDateField.css({borderColor: '#dc3545'});
+        if (startDateField.next('.info-text').length) {
+          birthDateField.next('.info-text').text('Invalid date').css({color: '#dc3545'});
+        } else {
+          birthDateField.after(
+              `<span class="text-danger info-text" style="font-size: 12px;">Invalid date</span>`
+          );
+        }
+      }
+    }
+
+    if (Object.keys(newUser).length === 13)
+      if (Object.keys(newUser.company).length === 4) {
+        this.users.push(newUser);
+
+        saveStorage("users", this.users);
+
+        return true;
+      }
+
+    return false;
   }
 
   setSort(bool) {
@@ -190,6 +334,14 @@ class Users {
       this.container.html(`Error 404 user not found`);
     } else {
       this.container.html(`
+      
+     <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">${user.first_name} ${user.last_name}</li>
+  </ol>
+</nav>
+ 
  <div class="card d-flex flex-md-row w-100 shadow" style="width: 18rem;">
   <div class="d-flex flex-column align-items-center card-body">
  
@@ -217,6 +369,7 @@ class Users {
         <label for="name" class="col-xl-2 col-form-label col-form-label-sm">First Name</label>
         <div class="col-xl-10">
           <input type="text" class="form-control user-field" id="name" name='fname' value="${user.first_name} ${user.last_name}" />
+          
         </div>
       </div>
 
@@ -402,6 +555,26 @@ class Users {
     }
   }
 
+  renderLastAccessedUsers(lastUsers) {
+    const container = $(".last-accessed-users");
+
+    if (lastUsers && lastUsers.length !== 0) {
+      lastUsers = this.users
+        .filter((user) => lastUsers.includes(user.id))
+        .reverse();
+      container.append(`<span>Last accessed users:</span>`);
+      container.append(`<div class="user-list d-flex gap-1 gap-sm-3"></div>`);
+      lastUsers.forEach((user) => {
+        let a = $(
+          `<a class="btn btn-outline-primary" href="user.html?userId=${user.id}">${user.first_name} ${user.last_name} </a>`,
+        );
+        $(`.user-list`).append(a);
+      });
+      return;
+    }
+    container.html("");
+  }
+
   async cachePosts(paramUserId) {
     const user = this.users.find((user) => user.id === Number(paramUserId));
 
@@ -554,7 +727,7 @@ class Users {
 
     relevantCourses.forEach((course) => {
       let span = $(`<li class="list-group-item">
-      <a class="link-primary link-opacity-75-hover link-underline-opacity-0" href="course.html?courseId=${course.id}">${course.title}</a>
+      <a class="link-primary link-opacity-75-hover link-underline-opacity-0" href="course.html?courseId=${course.id}&userId=${paramUserId}">${course.title}</a>
       </li>`);
 
       container.append(span);

@@ -65,8 +65,8 @@
   transform: rotate(180deg);
 }
 .active-view {
-  filter: invert(38%) sepia(60%) saturate(508%) hue-rotate(100deg)
-    brightness(97%) contrast(96%);
+  filter: invert(28%) sepia(80%) saturate(1922%) hue-rotate(246deg)
+    brightness(79%) contrast(88%);
 }
 
 @media (max-width: 767px) {

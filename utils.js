@@ -13,28 +13,29 @@ export function fetchStorage(name) {
     return false;
   }
   return JSON.parse(userData);
-};
+}
 
 export function saveStorage(name, data) {
   localStorage.setItem(name, JSON.stringify(data));
 }
 
 export function storeLastUsers(user) {
-  if (!fetchStorage('lastThreeUsers')) {
-    let lastUsers = [user.id]
-    saveStorage('lastThreeUsers', lastUsers)
-    return
+  if (!fetchStorage("lastThreeUsers")) {
+    let lastUsers = [user.id];
+    saveStorage("lastThreeUsers", lastUsers);
+    return;
   }
 
-  let lastUsers = fetchStorage('lastThreeUsers')
+  let lastUsers = fetchStorage("lastThreeUsers");
 
   if (!lastUsers.includes(user.id)) {
-    lastUsers.push(user.id)
+    lastUsers.push(user.id);
     if (lastUsers.length > 3) {
-      lastUsers.shift()}
+      lastUsers.shift();
+    }
   }
 
-  saveStorage('lastThreeUsers', lastUsers)
+  saveStorage("lastThreeUsers", lastUsers);
 }
 
 //Loading data from JSON if not in localstorage
