@@ -178,14 +178,14 @@
             <div class="d-flex w-75">
               <form class="form w-100">
                 <label
-                  for="searchByName"
+                  for="searchBy"
                   class="form-label"
                   style="display: none"
                 ></label>
                 <input
                   type="text"
                   class="form-control"
-                  id="searchByName"
+                  id="searchBy"
                   placeholder="Quick search"
                   aria-describedby="emailHelp"
                 />
@@ -196,7 +196,6 @@
                 alt="Arrow pointing up or down based on user click"
               />
             </div>
-
             <button
               class="navbar-toggler"
               type="button"
@@ -209,6 +208,7 @@
               <span class="navbar-toggler-icon"></span>
             </button>
           </div>
+
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul
               class="navbar-nav me-auto mb-2 mb-lg-0 text-nowrap mt-3 d-flex gap-2 align-items-lg-center"
@@ -229,13 +229,13 @@
                   type="button"
                   class="btn btn-primary sort-btn d-lg-none d-inline"
                 >
-                  Sort desc.
+                  Sort &#8595;
                 </button>
               </li>
               <li>
                 <img
                   src="./assets/ListBullet.svg"
-                  class="table-view-btn d-lg-inline d-none"
+                  class="table-view-btn d-lg-inline d-none active-view"
                   alt="Button that displays a stylized table"
                 />
               </li>
@@ -250,6 +250,18 @@
           </div>
         </div>
       </nav>
+
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          value=""
+          id="checkbox-mail"
+        />
+        <label class="form-check-label" for="checkbox-mail">
+          Search by mail
+        </label>
+      </div>
 
       <section class="user-container"></section>
     </header>

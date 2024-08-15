@@ -11,6 +11,27 @@ users.sort((a, b) => {
   return a.last_name.localeCompare(b.last_name);
 });
 
+function search(e) {
+  const searchTerm = $("#searchBy").val().toLowerCase();
+
+  $(".secondary-table-row").each(function () {
+    const searchByEmail = $("#checkbox-mail:checked").get(0) ? 2 : 1;
+
+    console.log(searchTerm);
+    const rowText = $(this)
+      .children("td")
+      .eq(searchByEmail)
+      .text()
+      .toLowerCase();
+
+    if (rowText.includes(searchTerm)) {
+      $(this).show();
+    } else {
+      $(this).hide();
+    }
+  });
+}
+
 //Render table dynamically using the users array.
 function renderTable() {
   //Add table element to container.
@@ -41,11 +62,11 @@ function renderTable() {
   //Create rows for each user
   sortedUsers.forEach((user, i) => {
     const tableRow = $(`
-            <tr>
+            <tr class="secondary-table-row">
                 <th class="d-none d-sm-table-cell">${i + 1}</th>
                 <td>   <img src="${user.picture ? user.picture : defaultPicLink}" class="user-profile-pic small visible@l" alt="..."></td>
-                <td>${user.first_name} ${user.last_name}</td>
-                <td>${user.email}</td>
+                <td class="td-name">${user.first_name} ${user.last_name}</td>
+                <td class="td-email">${user.email}</td>
                 <td class="d-none d-sm-table-cell">
                     <a class="btn btn-primary btn-sm text-nowrap" href="user.html?userId=${user.id}" role="button">Show info</a>
                 </td>
@@ -108,8 +129,8 @@ $(".navbar").on("click", "img, button", (e) => {
     $(".table-order-btn").toggleClass("sortDesc");
 
     let sortBtnHtml = $(".table-order-btn").hasClass("sortDesc")
-      ? `Sort asc.`
-      : `Sort desc.`;
+      ? `Sort &#8593;`
+      : `Sort &#8595;`;
     $(".sort-btn").html(sortBtnHtml);
   }
 });
@@ -144,3 +165,9 @@ $(".modal").on("click", "button", (e) => {
     location.reload();
   }
 });
+
+// Trigger search when the input changes
+$("#searchBy").on("input", search);
+
+// Trigger search when the checkbox state changes
+$("#checkbox-mail").on("change", search);

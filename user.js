@@ -186,7 +186,7 @@ function renderUserDetails() {
 
     $(".user-field").attr("disabled", true);
 
-    $("#avatar").on("change", async (e) => {
+    $("#avatar").on("change", (e) => {
       const file = e.target.files[0];
       if (file) {
         const reader = new FileReader();

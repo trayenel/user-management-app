@@ -14,7 +14,6 @@
 .profile-pic-wrapper:hover > .user-profile-pic {
   transform: scale(1.05);
   filter: blur(1.5px);
-
 }
 
 .profile-pic-wrapper:hover > .profile-pic-text {
