@@ -25,7 +25,7 @@ class Users {
       return acc > curr.id ? acc : curr.id;
     }, 0);
 
-    const newUser = { id: userId + 1 };
+    const newUser = { id: userId + 1, company: {}};
 
     formData.forEach((value, key) => {
       let inputField = $(`input[name = "${key}"]`);
@@ -43,7 +43,11 @@ class Users {
         inputField.after(
           `<span class="info-text" style="font-size: 12px; color: green;">Looks good!</span>`,
         );
-        newUser[key] = value.trim();
+        if (key[0] === "c") {
+          let companyDetail = key.slice(1, key.length);
+          newUser.company[companyDetail] = value.trim();
+        }
+        else newUser[key] = value.trim();
       }
     });
 
@@ -53,7 +57,7 @@ class Users {
     let mailField = $(`input[name = "email"]`);
 
     let height = formData.get('height').trim()
-    let heightRegex = /^(?:(?:[4-9]|[1-7]\\d?)')\\s*(?:0?|(?:1[0-1]|\\d))\"?$/
+    let heightRegex = /^([1-9]|[1-9][0-9])['\s]?([0-9]|[0-9][0-9])$/
     let heightField = $(`input[name = "height"]`);
 
     let age = formData.get('age').trim()
@@ -99,6 +103,8 @@ class Users {
 
     if (height !== '') {
       if (!height.match(heightRegex)) {
+        console.log('aaa'
+        )
         heightField.css({borderColor: '#dc3545'});
         if (heightField.next('.info-text').length) {
           heightField.next('.info-text').text('Invalid height').css({color: '#dc3545'});

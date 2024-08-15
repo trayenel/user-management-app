@@ -51,7 +51,7 @@ $(".modal").on("click", "button", (e) => {
   e.preventDefault();
   if ($(e.target).is(".modal-save")) {
     let isValid = User.addUser();
-    // if (isValid) location.reload();
+    if (isValid) location.reload();
   }
 });
 
