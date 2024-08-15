@@ -41,4 +41,3 @@ $("#searchBy").on("input", User.search);
 
 // Trigger search when the checkbox state changes
 $("#checkbox-mail").on("change", User.search);
-
