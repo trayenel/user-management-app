@@ -1,10 +1,10 @@
 import {
   courses,
   defaultPicLink,
-  fetchStorage,
   getData,
   saveStorage,
   users,
+  validateForm,
 } from "./utils.js";
 
 class Users {
@@ -25,191 +25,17 @@ class Users {
       return acc > curr.id ? acc : curr.id;
     }, 0);
 
-    const newUser = { id: userId + 1, company: {} };
+    const newUser = validateForm(
+      formData,
+      { id: userId + 1, company: {} },
+      this.users,
+    );
 
-    formData.forEach((value, key) => {
-      let inputField = $(`input[name = "${key}"]`);
-      inputField.siblings(".text-danger, .info-text").remove();
-
-      if (!value.trim()) {
-        inputField.css({ borderColor: "#dc3545" });
-        if (!inputField.next(".info-text").length) {
-          inputField.after(
-            `<span class="text-danger info-text" style="font-size: 12px;">Field can't be empty</span>`,
-          );
-        }
-      } else {
-        inputField.css({ borderColor: "green" });
-        inputField.after(
-          `<span class="info-text" style="font-size: 12px; color: green;">Looks good!</span>`,
-        );
-        if (key[0] === "c") {
-          let companyDetail = key.slice(1, key.length);
-          newUser.company[companyDetail] = value.trim();
-        } else newUser[key] = value.trim();
-      }
-    });
-
-    let email = formData.get("email").trim();
-    let existingUser = this.users.find((user) => user.email === email);
-    let mailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    let mailField = $(`input[name = "email"]`);
-
-    let height = formData.get("height").trim();
-    let heightRegex = /^([1-9]|[1-9][0-9])['\s]?([0-9]|[0-9][0-9])$/;
-    let heightField = $(`input[name = "height"]`);
-
-    let age = formData.get("age").trim();
-    let ageField = $(`input[name = "age"]`);
-
-    let salary = formData.get("csalary").trim();
-    let salaryField = $(`input[name = "csalary"]`);
-
-    let phone = formData.get("phone").trim();
-    let phoneField = $(`input[name = "phone"]`);
-    let phoneRegex = /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
-
-    let startDate = formData.get("cstart_date").trim();
-    let startDateField = $(`input[name = "cstart_date"]`);
-    let birthDate = formData.get("birthdate").trim();
-    let birthDateField = $(`input[name = "birthdate"]`);
-    let dateRegex = /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
-
-    if (email !== "") {
-      if (!email.match(mailRegex)) {
-        mailField.css({ borderColor: "#dc3545" });
-        if (mailField.next(".info-text").length) {
-          mailField
-            .next(".info-text")
-            .text("Invalid email")
-            .css({ color: "#dc3545" });
-        } else {
-          mailField.after(
-            `<span class="text-danger info-text" style="font-size: 12px;">Invalid email</span>`,
-          );
-        }
-      } else {
-        if (existingUser) {
-          mailField.css({ borderColor: "#dc3545" });
-          if (mailField.next(".info-text").length) {
-            mailField
-              .next(".info-text")
-              .text("Duplicate email")
-              .css({ color: "#dc3545" });
-          } else {
-            mailField.after(
-              `<span class="text-danger info-text" style="font-size: 12px;">Duplicate email</span>`,
-            );
-          }
-        }
-      }
+    if (newUser) {
+      this.users.push(newUser);
+      saveStorage("users", this.users);
+      return true;
     }
-
-    if (height !== "") {
-      if (!height.match(heightRegex)) {
-        console.log("aaa");
-        heightField.css({ borderColor: "#dc3545" });
-        if (heightField.next(".info-text").length) {
-          heightField
-            .next(".info-text")
-            .text("Invalid height")
-            .css({ color: "#dc3545" });
-        } else {
-          heightField.after(
-            `<span class="text-danger info-text" style="font-size: 12px;">Invalid height</span>`,
-          );
-        }
-      }
-    }
-
-    if (age !== "") {
-      if (Number.isNaN(Number(age))) {
-        ageField.css({ borderColor: "#dc3545" });
-        if (ageField.next(".info-text").length) {
-          ageField
-            .next(".info-text")
-            .text("Invalid age")
-            .css({ color: "#dc3545" });
-        } else {
-          ageField.after(
-            `<span class="text-danger info-text" style="font-size: 12px;">Invalid age</span>`,
-          );
-        }
-      }
-    }
-
-    if (salary !== "") {
-      if (Number.isNaN(Number(salary))) {
-        salaryField.css({ borderColor: "#dc3545" });
-        if (ageField.next(".info-text").length) {
-          salaryField
-            .next(".info-text")
-            .text("Invalid salary")
-            .css({ color: "#dc3545" });
-        } else {
-          salaryField.after(
-            `<span class="text-danger info-text" style="font-size: 12px;">Invalid salary</span>`,
-          );
-        }
-      }
-    }
-
-    if (phone !== "") {
-      if (!phone.match(phoneRegex)) {
-        phoneField.css({ borderColor: "#dc3545" });
-        if (phoneField.next(".info-text").length) {
-          phoneField
-            .next(".info-text")
-            .text("Invalid phone number")
-            .css({ color: "#dc3545" });
-        } else {
-          phoneField.after(
-            `<span class="text-danger info-text" style="font-size: 12px;">Invalid phone number</span>`,
-          );
-        }
-      }
-    }
-
-    if (startDate !== "") {
-      if (!startDate.match(dateRegex)) {
-        startDateField.css({ borderColor: "#dc3545" });
-        if (startDateField.next(".info-text").length) {
-          startDateField
-            .next(".info-text")
-            .text("Invalid date")
-            .css({ color: "#dc3545" });
-        } else {
-          startDateField.after(
-            `<span class="text-danger info-text" style="font-size: 12px;">Invalid date</span>`,
-          );
-        }
-      }
-    }
-
-    if (birthDate !== "") {
-      if (!birthDate.match(dateRegex)) {
-        birthDateField.css({ borderColor: "#dc3545" });
-        if (startDateField.next(".info-text").length) {
-          birthDateField
-            .next(".info-text")
-            .text("Invalid date")
-            .css({ color: "#dc3545" });
-        } else {
-          birthDateField.after(
-            `<span class="text-danger info-text" style="font-size: 12px;">Invalid date</span>`,
-          );
-        }
-      }
-    }
-
-    if (Object.keys(newUser).length === 13)
-      if (Object.keys(newUser.company).length === 4) {
-        this.users.push(newUser);
-
-        saveStorage("users", this.users);
-
-        return true;
-      }
 
     return false;
   }
@@ -218,7 +44,7 @@ class Users {
     if (this.sortDesc === bool) return;
     this.sortDesc = bool;
     this.render();
-    if ($("#searchBy").val() !== "") this.search()
+    if ($("#searchBy").val() !== "") this.search();
   }
 
   setView(view) {
@@ -397,7 +223,7 @@ class Users {
       <div class="form-group row">
         <label for="name" class="col-xl-2 col-form-label col-form-label-sm">First Name</label>
         <div class="col-xl-10">
-          <input type="text" class="form-control user-field" id="name" name='fname' value="${user.first_name} ${user.last_name}" />
+          <input type="text" class="form-control user-field" id="name" name='_name' value="${user.first_name} ${user.last_name}" />
           
         </div>
       </div>
@@ -537,31 +363,18 @@ class Users {
 
           const formData = new FormData(form);
 
-          let newUser = { ...user };
+          let newUser = validateForm(formData, { ...user }, this.users);
 
-          formData.forEach((value, key) => {
-            if (key[0] === "c") {
-              let companyDetail = key.slice(1, key.length);
-              newUser.company[companyDetail] = value.trim();
-            } else if (key[0] === "f") {
-              let fullname = value.split(" ");
-              newUser.first_name = fullname[0];
-              newUser.last_name = fullname[1] ? fullname[1] : "";
-            } else {
-              newUser[key] = value.trim();
-            }
-          });
+          if (newUser) {
+            this.users[usrIdx] = newUser;
+            saveStorage("users", users);
+            editBtn.html("Edit");
+            editBtn.removeClass("btn-save");
+            $(".user").attr("disabled", true);
+            cancelBtn.attr("disabled", true);
+            location.reload();
+          }
 
-          users[usrIdx] = newUser;
-
-          saveStorage("users", users);
-
-          editBtn.html("Edit");
-          editBtn.removeClass("btn-save");
-          $(".user").attr("disabled", true);
-          cancelBtn.attr("disabled", true);
-
-          location.reload();
           return;
         }
 
@@ -609,7 +422,7 @@ class Users {
 
     if (!user) return;
 
-    if (!navigator.onLine) return
+    if (!navigator.onLine) return;
 
     if (!user.posts) {
       const posts = await getData(
@@ -682,8 +495,8 @@ class Users {
     const tableBody = $("<tbody></tbody>");
 
     if (!user.posts) {
-      this.container.append(`<div class="mt-3">Could not fetch posts</div>`)
-      return
+      this.container.append(`<div class="mt-3">Could not fetch posts</div>`);
+      return;
     }
     //Create rows for each user
     await user.posts.forEach((post) => {

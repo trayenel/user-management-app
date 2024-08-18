@@ -1,5 +1,5 @@
 import User from "./Users.js";
-import { fetchStorage } from "./utils.js";
+import { fetchStorage, saveStorage } from "./utils.js";
 
 User.render();
 
@@ -51,7 +51,9 @@ $(".modal").on("click", "button", (e) => {
   e.preventDefault();
   if ($(e.target).is(".modal-save")) {
     let isValid = User.addUser();
-    if (isValid) location.reload();
+    if (isValid) {
+      location.reload();
+    }
   }
 });
 

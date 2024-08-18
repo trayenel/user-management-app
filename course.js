@@ -41,20 +41,20 @@ function renderCourseDetails() {
    `);
     userContainer.append(`
   
- <div class="card d-flex flex-md-row w-auto shadow align-self-center" style="width: 18rem;">
+ <div class="card d-flex flex-md-row w-50 shadow align-self-center" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title text-center">${course.title}</h5>
     <p class="card-text">Category: ${course.category}</p>
     <p class="card-text">Duration: ${course.duration}</p>
-    <p class="card-text users d-flex text-nowrap">Enrolled users:&nbsp;</p>
+    <li class="card-text users list-group list-group">Enrolled users:</li>
   </div>
 </div> 
   `);
 
     enrolledUsers.forEach((user, index) => {
       let punctuation = index === enrolledUsers.length - 1 ? "." : ",";
-      $(".users").append(`
- <a class="text-nowrap link-primary link-underline-opacity-0" href="./user.html?userId=${user.id}">${user.first_name} ${user.last_name}</a><span>${punctuation}&nbsp;</span>
+      $(".users").append(`<li class="list-group-item">
+ <a class="text-nowrap link-primary link-underline-opacity-0" href="./user.html?userId=${user.id}">${user.first_name} ${user.last_name}</a></li>
   `);
     });
   }
