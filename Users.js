@@ -218,7 +218,7 @@ class Users {
     if (this.sortDesc === bool) return;
     this.sortDesc = bool;
     this.render();
-    $("#searchBy").val("");
+    if ($("#searchBy").val() !== "") this.search()
   }
 
   setView(view) {
@@ -609,6 +609,8 @@ class Users {
 
     if (!user) return;
 
+    if (!navigator.onLine) return
+
     if (!user.posts) {
       const posts = await getData(
         `https://dummyjson.com/posts/user/${user.id}`,
@@ -679,6 +681,10 @@ class Users {
 
     const tableBody = $("<tbody></tbody>");
 
+    if (!user.posts) {
+      this.container.append(`<div class="mt-3">Could not fetch posts</div>`)
+      return
+    }
     //Create rows for each user
     await user.posts.forEach((post) => {
       const tableRow = $(`

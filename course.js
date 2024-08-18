@@ -41,12 +41,12 @@ function renderCourseDetails() {
    `);
     userContainer.append(`
   
- <div class="card d-flex flex-md-row w-50 shadow align-self-center" style="width: 18rem;">
+ <div class="card d-flex flex-md-row w-auto shadow align-self-center" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title text-center">${course.title}</h5>
     <p class="card-text">Category: ${course.category}</p>
     <p class="card-text">Duration: ${course.duration}</p>
-    <p class="card-text users d-flex">Enrolled users:&nbsp;</p>
+    <p class="card-text users d-flex text-nowrap">Enrolled users:&nbsp;</p>
   </div>
 </div> 
   `);
@@ -54,7 +54,7 @@ function renderCourseDetails() {
     enrolledUsers.forEach((user, index) => {
       let punctuation = index === enrolledUsers.length - 1 ? "." : ",";
       $(".users").append(`
- <a class="link-primary link-underline-opacity-0" href="./user.html?userId=${user.id}">${user.first_name} ${user.last_name}</a><span>${punctuation}&nbsp;</span>
+ <a class="text-nowrap link-primary link-underline-opacity-0" href="./user.html?userId=${user.id}">${user.first_name} ${user.last_name}</a><span>${punctuation}&nbsp;</span>
   `);
     });
   }
