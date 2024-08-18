@@ -16,6 +16,8 @@ const courseIdx = courses.findIndex(
 const course = courses[courseIdx];
 
 const enrolledUsers = User.users.filter((user) => {
+  if (!course) return;
+
   if (Array.isArray(course.userId)) {
     return course.userId.includes(user.id);
   }
@@ -23,29 +25,36 @@ const enrolledUsers = User.users.filter((user) => {
 });
 
 function renderCourseDetails() {
-  if (!course) {
-    userContainer.html(`Error 404 course not found`);
+  if (!course || !user) {
+    userContainer.html(`
+     <div><a href="./index.html">Home</a></div>
+     <span>Error 404 course not found</span>`);
   } else {
     userContainer.html(`
-    <nav aria-label="breadcrumb">
+      <nav aria-label="breadcrumb" class="align-self-start">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-    <li class="breadcrumb-item"><a href="user.html?userId=${user.id}">${user.first_name}</a></li>
+    <li class="breadcrumb-item"><a href="user.html?userId=${user.id}">${user.first_name} ${user.last_name}</a></li>
     <li class="breadcrumb-item active" aria-current="page">${course.title}</li> 
   </ol>
 </nav>
-
- <div class="card d-flex flex-md-row w-100 shadow" style="width: 18rem;">
+   `);
+    userContainer.append(`
+  
+ <div class="card d-flex flex-md-row w-50 shadow align-self-center" style="width: 18rem;">
   <div class="card-body">
-    <h5 class="card-title">${course.category}</h5>
-    <p class="card-text">${course.title}</p>
-    <p class="card-text">${course.duration}</p>
+    <h5 class="card-title text-center">${course.title}</h5>
+    <p class="card-text">Category: ${course.category}</p>
+    <p class="card-text">Duration: ${course.duration}</p>
+    <p class="card-text users d-flex">Enrolled users:&nbsp;</p>
   </div>
 </div> 
   `);
-    enrolledUsers.forEach((user) => {
-      $(".card-body").append(`
-  <p class="card-text" >${user.first_name} ${user.last_name}</p>
+
+    enrolledUsers.forEach((user, index) => {
+      let punctuation = index === enrolledUsers.length - 1 ? "." : ",";
+      $(".users").append(`
+ <a class="link-primary link-underline-opacity-0" href="./user.html?userId=${user.id}">${user.first_name} ${user.last_name}</a><span>${punctuation}&nbsp;</span>
   `);
     });
   }

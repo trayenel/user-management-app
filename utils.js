@@ -20,6 +20,7 @@ export function saveStorage(name, data) {
 }
 
 export function storeLastUsers(user) {
+  if (!user) return;
   if (!fetchStorage("lastThreeUsers")) {
     let lastUsers = [user.id];
     saveStorage("lastThreeUsers", lastUsers);

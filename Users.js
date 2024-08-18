@@ -25,7 +25,7 @@ class Users {
       return acc > curr.id ? acc : curr.id;
     }, 0);
 
-    const newUser = { id: userId + 1, company: {}};
+    const newUser = { id: userId + 1, company: {} };
 
     formData.forEach((value, key) => {
       let inputField = $(`input[name = "${key}"]`);
@@ -46,135 +46,157 @@ class Users {
         if (key[0] === "c") {
           let companyDetail = key.slice(1, key.length);
           newUser.company[companyDetail] = value.trim();
-        }
-        else newUser[key] = value.trim();
+        } else newUser[key] = value.trim();
       }
     });
 
-    let email =  formData.get('email').trim()
+    let email = formData.get("email").trim();
     let existingUser = this.users.find((user) => user.email === email);
-    let mailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    let mailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     let mailField = $(`input[name = "email"]`);
 
-    let height = formData.get('height').trim()
-    let heightRegex = /^([1-9]|[1-9][0-9])['\s]?([0-9]|[0-9][0-9])$/
+    let height = formData.get("height").trim();
+    let heightRegex = /^([1-9]|[1-9][0-9])['\s]?([0-9]|[0-9][0-9])$/;
     let heightField = $(`input[name = "height"]`);
 
-    let age = formData.get('age').trim()
+    let age = formData.get("age").trim();
     let ageField = $(`input[name = "age"]`);
 
-    let salary = formData.get('csalary').trim()
+    let salary = formData.get("csalary").trim();
     let salaryField = $(`input[name = "csalary"]`);
 
-    let phone = formData.get('phone').trim()
-    let phoneField =  $(`input[name = "phone"]`);
-    let phoneRegex = /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/
+    let phone = formData.get("phone").trim();
+    let phoneField = $(`input[name = "phone"]`);
+    let phoneRegex = /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
 
-    let startDate = formData.get('cstart_date').trim()
-    let startDateField =  $(`input[name = "cstart_date"]`);
-    let birthDate = formData.get('birthdate').trim()
-    let birthDateField =  $(`input[name = "birthdate"]`);
-    let dateRegex = /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/
+    let startDate = formData.get("cstart_date").trim();
+    let startDateField = $(`input[name = "cstart_date"]`);
+    let birthDate = formData.get("birthdate").trim();
+    let birthDateField = $(`input[name = "birthdate"]`);
+    let dateRegex = /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
 
-    if (email !== '') {
+    if (email !== "") {
       if (!email.match(mailRegex)) {
-
-        mailField.css({borderColor: '#dc3545'});
-        if (mailField.next('.info-text').length) {
-          mailField.next('.info-text').text('Invalid email').css({color: '#dc3545'});
+        mailField.css({ borderColor: "#dc3545" });
+        if (mailField.next(".info-text").length) {
+          mailField
+            .next(".info-text")
+            .text("Invalid email")
+            .css({ color: "#dc3545" });
         } else {
           mailField.after(
-              `<span class="text-danger info-text" style="font-size: 12px;">Invalid email</span>`
+            `<span class="text-danger info-text" style="font-size: 12px;">Invalid email</span>`,
           );
         }
       } else {
         if (existingUser) {
-          mailField.css({borderColor: "#dc3545"});
+          mailField.css({ borderColor: "#dc3545" });
           if (mailField.next(".info-text").length) {
-            mailField.next(".info-text").text("Duplicate email").css({color: "#dc3545"});
+            mailField
+              .next(".info-text")
+              .text("Duplicate email")
+              .css({ color: "#dc3545" });
           } else {
             mailField.after(
-                `<span class="text-danger info-text" style="font-size: 12px;">Duplicate email</span>`
+              `<span class="text-danger info-text" style="font-size: 12px;">Duplicate email</span>`,
             );
           }
         }
       }
     }
 
-    if (height !== '') {
+    if (height !== "") {
       if (!height.match(heightRegex)) {
-        console.log('aaa'
-        )
-        heightField.css({borderColor: '#dc3545'});
-        if (heightField.next('.info-text').length) {
-          heightField.next('.info-text').text('Invalid height').css({color: '#dc3545'});
+        console.log("aaa");
+        heightField.css({ borderColor: "#dc3545" });
+        if (heightField.next(".info-text").length) {
+          heightField
+            .next(".info-text")
+            .text("Invalid height")
+            .css({ color: "#dc3545" });
         } else {
           heightField.after(
-              `<span class="text-danger info-text" style="font-size: 12px;">Invalid height</span>`
+            `<span class="text-danger info-text" style="font-size: 12px;">Invalid height</span>`,
           );
         }
       }
     }
 
-    if (age !== '') {
+    if (age !== "") {
       if (Number.isNaN(Number(age))) {
-        ageField.css({borderColor: '#dc3545'});
-        if (ageField.next('.info-text').length) {
-          ageField.next('.info-text').text('Invalid age').css({color: '#dc3545'});
+        ageField.css({ borderColor: "#dc3545" });
+        if (ageField.next(".info-text").length) {
+          ageField
+            .next(".info-text")
+            .text("Invalid age")
+            .css({ color: "#dc3545" });
         } else {
           ageField.after(
-              `<span class="text-danger info-text" style="font-size: 12px;">Invalid age</span>`
+            `<span class="text-danger info-text" style="font-size: 12px;">Invalid age</span>`,
           );
         }
       }
     }
 
-    if (salary !== '') {
+    if (salary !== "") {
       if (Number.isNaN(Number(salary))) {
-        salaryField.css({borderColor: '#dc3545'});
-        if (ageField.next('.info-text').length) {
-          salaryField.next('.info-text').text('Invalid salary').css({color: '#dc3545'});
+        salaryField.css({ borderColor: "#dc3545" });
+        if (ageField.next(".info-text").length) {
+          salaryField
+            .next(".info-text")
+            .text("Invalid salary")
+            .css({ color: "#dc3545" });
         } else {
           salaryField.after(
-              `<span class="text-danger info-text" style="font-size: 12px;">Invalid salary</span>`
+            `<span class="text-danger info-text" style="font-size: 12px;">Invalid salary</span>`,
           );
         }
       }
     }
 
-    if (phone !== '') {
+    if (phone !== "") {
       if (!phone.match(phoneRegex)) {
-        phoneField.css({ borderColor: '#dc3545' });
-        if (phoneField.next('.info-text').length) {
-          phoneField.next('.info-text').text('Invalid phone number').css({ color: '#dc3545' });
+        phoneField.css({ borderColor: "#dc3545" });
+        if (phoneField.next(".info-text").length) {
+          phoneField
+            .next(".info-text")
+            .text("Invalid phone number")
+            .css({ color: "#dc3545" });
         } else {
-          phoneField.after(`<span class="text-danger info-text" style="font-size: 12px;">Invalid phone number</span>`);
+          phoneField.after(
+            `<span class="text-danger info-text" style="font-size: 12px;">Invalid phone number</span>`,
+          );
         }
       }
     }
 
-    if (startDate !== '') {
+    if (startDate !== "") {
       if (!startDate.match(dateRegex)) {
-        startDateField.css({borderColor: '#dc3545'});
-        if (startDateField.next('.info-text').length) {
-          startDateField.next('.info-text').text('Invalid date').css({color: '#dc3545'});
+        startDateField.css({ borderColor: "#dc3545" });
+        if (startDateField.next(".info-text").length) {
+          startDateField
+            .next(".info-text")
+            .text("Invalid date")
+            .css({ color: "#dc3545" });
         } else {
           startDateField.after(
-              `<span class="text-danger info-text" style="font-size: 12px;">Invalid date</span>`
+            `<span class="text-danger info-text" style="font-size: 12px;">Invalid date</span>`,
           );
         }
       }
     }
 
-
-    if (birthDate !== '') {
+    if (birthDate !== "") {
       if (!birthDate.match(dateRegex)) {
-        birthDateField.css({borderColor: '#dc3545'});
-        if (startDateField.next('.info-text').length) {
-          birthDateField.next('.info-text').text('Invalid date').css({color: '#dc3545'});
+        birthDateField.css({ borderColor: "#dc3545" });
+        if (startDateField.next(".info-text").length) {
+          birthDateField
+            .next(".info-text")
+            .text("Invalid date")
+            .css({ color: "#dc3545" });
         } else {
           birthDateField.after(
-              `<span class="text-danger info-text" style="font-size: 12px;">Invalid date</span>`
+            `<span class="text-danger info-text" style="font-size: 12px;">Invalid date</span>`,
           );
         }
       }
@@ -337,7 +359,8 @@ class Users {
     const user = users[usrIdx];
 
     if (!user) {
-      this.container.html(`Error 404 user not found`);
+      this.container.html(`<div><a href="./index.html">Home</a></div>
+      <div>Error 404 user not found</div>`);
     } else {
       this.container.html(`
       
@@ -584,6 +607,8 @@ class Users {
   async cachePosts(paramUserId) {
     const user = this.users.find((user) => user.id === Number(paramUserId));
 
+    if (!user) return;
+
     if (!user.posts) {
       const posts = await getData(
         `https://dummyjson.com/posts/user/${user.id}`,
@@ -599,6 +624,8 @@ class Users {
       (user) => user.id === Number(paramUserId),
     );
     const user = users[usrIdx];
+
+    if (!user) return;
 
     //Create posts elements
     let posts = $('<section class="posts"></section>');
@@ -694,12 +721,11 @@ class Users {
       if ($(e.target).is(".create-post")) return;
 
       if ($(e.target).is(btnCheck)) {
-        principalCheckbox.prop("checked", $(btnCheck).is(":checked"));
-        let isChecked = principalCheckbox.is(":checked");
+        let isChecked = $(btnCheck).is(":checked");
         secondaryCheckboxes.prop("checked", isChecked);
       }
 
-      if ($(e.target).is(".principal-checkbox")) {
+      if ($(e.target).is(principalCheckbox)) {
         let isChecked = principalCheckbox.is(":checked");
         secondaryCheckboxes.prop("checked", isChecked);
       }
@@ -715,6 +741,7 @@ class Users {
 
       if (checkedCount > 0 && checkedCount < totalCount) {
         principalCheckbox.prop("indeterminate", true);
+        btnCheck.prop("checked", false);
       } else {
         principalCheckbox.prop("indeterminate", false);
         principalCheckbox.prop("checked", checkedCount === totalCount);
