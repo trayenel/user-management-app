@@ -1,5 +1,10 @@
 ## Technical Assignment - Interview
 
+### Installation
+
+- Run npm install
+- Start the project with npm start
+
 ### Before you start the assignment
 
 After you create your own private repository, git clone this project and **send me an invitation**.
