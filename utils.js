@@ -128,7 +128,7 @@ function validateNumericField(value, field) {
 function validatePhone(phone, field) {
   const phoneRegex = /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
   if (!phone.match(phoneRegex)) {
-    addError(field, "Phone number format must be xxx-xxx-xxxx");
+    addError(field, "Phone format must be xxx-xxx-xxxx");
     return false;
   }
   return true;
