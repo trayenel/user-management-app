@@ -128,7 +128,7 @@ function validateNumericField(value, field) {
 function validatePhone(phone, field) {
   const phoneRegex = /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
   if (!phone.match(phoneRegex)) {
-    addError(field, "Invalid phone number");
+    addError(field, "Phone number format must be xxx-xxx-xxxx");
     return false;
   }
   return true;
@@ -137,7 +137,7 @@ function validatePhone(phone, field) {
 function validateDate(date, field) {
   const dateRegex = /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
   if (!date.match(dateRegex)) {
-    addError(field, "Invalid date");
+    addError(field, "Date format must be yyyy-mm-dd");
     return false;
   }
   return true;
